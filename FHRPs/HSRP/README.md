@@ -41,7 +41,7 @@ interface f1/0
 
 ### PC1
 
-```pc
+```text
 ping 10.255.1.1
 trace 10.255.1.1
 ```
