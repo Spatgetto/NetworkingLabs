@@ -6,7 +6,7 @@ What is the point of doing this lab
 
 ## Key Technologies
 
-What are technologies does this lab focus on
+What technologies does this lab focus on
 
 ## Relevant Commands
 
