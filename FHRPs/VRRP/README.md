@@ -50,6 +50,8 @@ trace 10.255.1.1
 ### R2 + R3
 
 ```cisco
+show track brief
+show ip sla
 show run | section vrrp
 show vrrp brief
 show vrrp
@@ -65,7 +67,7 @@ Interface          Grp Pri Time  Own Pre State   Master addr     Group addr
 Fa1/0              1   110 3570       Y  Master  10.1.1.2        10.1.1.1
 ```
 
-After making R1 unreachable by shutting down R1's interfaces, R2 is now the Backup router due to a lo   r priority
+After making R1 unreachable by shutting down R1's interfaces, R2 is now the Backup router due to having a lower priority
 
 ```cisco
 *Oct  7 18:30:20.003: %TRACKING-5-STATE: 1 ip sla 1 reachability Up->Down

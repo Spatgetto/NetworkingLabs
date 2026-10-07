@@ -1,0 +1,126 @@
+Current configuration : 1559 bytes
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname R2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip tcp synwait-time 5
+!
+track 1 interface FastEthernet0/0 line-protocol
+!
+track 2 ip route 10.255.1.1 255.255.255.255 reachability
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.255.2.2 255.255.255.255
+!
+interface FastEthernet0/0
+ ip address 10.0.12.2 255.255.255.252
+ duplex full
+!
+interface FastEthernet1/0
+ ip address 10.1.1.2 255.255.255.0
+ standby version 2
+ standby 1 ip 10.1.1.1
+ standby 1 priority 105
+ standby 1 preempt
+ standby 1 authentication md5 key-string securepassword1
+ standby 1 track 1 decrement 10
+ standby 1 track 2 decrement 20
+ duplex full
+!
+interface FastEthernet2/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface FastEthernet3/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface FastEthernet4/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface FastEthernet5/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface FastEthernet6/0
+ no ip address
+ shutdown
+ duplex full
+!
+router ospf 1
+ network 10.0.0.0 0.255.255.255 area 0
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+end

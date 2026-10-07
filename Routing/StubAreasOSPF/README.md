@@ -1,1 +1,0 @@
-OSPF Stub Areas Lab
