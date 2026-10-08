@@ -1,0 +1,145 @@
+Current configuration : 1895 bytes
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip tcp synwait-time 5
+!
+!
+crypto isakmp policy 1
+ encr aes
+ hash sha256
+ authentication pre-share
+ group 14
+crypto isakmp key key1 address 0.0.0.0
+!
+!
+crypto ipsec transform-set transform1 esp-aes esp-sha-hmac
+ mode transport
+!
+!
+crypto ipsec profile ipsec1
+ set transform-set transform1
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.255.1.1 255.255.255.255
+!
+interface Loopback1
+ ip address 10.254.1.1 255.255.255.255
+!
+interface Tunnel1
+ ip address 172.16.14.1 255.255.255.252
+ tunnel source Loopback0
+ tunnel destination 10.255.4.4
+ tunnel protection ipsec profile ipsec1
+!
+interface FastEthernet0/0
+ ip address 10.0.12.1 255.255.255.252
+ duplex full
+!
+interface FastEthernet1/0
+ ip address 10.1.1.0 255.255.0.0
+ duplex full
+!
+interface FastEthernet2/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface FastEthernet3/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface FastEthernet4/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface FastEthernet5/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface FastEthernet6/0
+ no ip address
+ shutdown
+ duplex full
+!
+!
+router eigrp 1
+ network 10.0.0.0 0.0.255.255
+ network 10.255.0.0 0.0.255.255
+!
+router ospf 1
+ network 10.1.0.0 0.0.255.255 area 0
+ network 10.254.1.1 0.0.0.0 area 0
+ network 172.16.0.0 0.0.255.255 area 0
+ distance 85
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+end
