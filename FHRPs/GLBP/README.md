@@ -2,11 +2,11 @@
 
 ## Objective
 
-Configure Gateway Load Balancing Protocol (GLBP)
+Configure Gateway Load Balancing Protocol (GLBP) with Object Tracking to automatically change GLBP weight upon an interface going down
 
 ## Key Technologies
 
-- HSRPv2
+- GLBP
 - Object Tracking
 
 ## Relevant Commands
@@ -15,26 +15,25 @@ Configure Gateway Load Balancing Protocol (GLBP)
 
 ```cisco
 track 1 interface FastEthernet0/0 line-protocol
-track 2 ip route 10.255.1.1 255.255.255.255 reachability
+ glbp 1 weighting track 1 decrement 50
+
 
 interface f1/0
- standby version 2
- standby 1 ip 10.1.1.1
- standby 1 priority 105
- standby 1 preempt
- standby 1 authentication md5 key-string securepassword1
- standby 1 track 1 decrement 10
- standby 1 track 2 decrement 20
+ glbp 1 ip 10.1.1.1
+ glbp 1 priority 110
+ glbp 1 preempt
+ glbp 1 weighting 100 lower 60 upper 80
+ glbp 1 authentication md5 key-string uncrackable001
+ glbp 1 weighting track 1 decrement 50
 ```
 
 ### R3
 
 ```cisco
 interface f1/0
- standby version 2
- standby 1 ip 10.1.1.1
- standby 1 preempt
- standby 1 authentication md5 key-string securepassword1
+ glbp 1 ip 10.1.1.1
+ glbp 1 preempt
+ glbp 1 authentication md5 key-string uncrackable001
 ```
 
 ## Verification
@@ -49,41 +48,104 @@ trace 10.255.1.1
 ### R2 + R3
 
 ```cisco
-show run | section standbys
+show run | section glbp
 show run | section track
-show standby
-show standby brief
+show glbp
+show glbp brief
 show track brief
 ```
 
 ### R2 Example
 
-R2 is the Active router due to a higher priority
-
+R2 has a weight of 100, packets are load balanced 50/50 between R2 and R3
 ```cisco
-R2#show standby brief
-                     P indicates configured to preempt.
-                     |
-Interface   Grp  Pri P State   Active          Standby         Virtual IP
-Fa1/0       1    105 P Active  local           10.1.1.3        10.1.1.1
+R2#show glbp
+FastEthernet1/0 - Group 1
+  State is Active
+    1 state change, last state change 00:19:20
+  Virtual IP address is 10.1.1.1
+  Hello time 3 sec, hold time 10 sec
+    Next hello sent in 2.208 secs
+  Redirect time 600 sec, forwarder time-out 14400 sec
+  Authentication MD5, key-string
+  Preemption enabled, min delay 0 sec
+  Active is local
+  Standby is 10.1.1.3, priority 100 (expires in 9.504 sec)
+  Priority 110 (configured)
+  Weighting 100 (configured 100), thresholds: lower 60, upper 80
+    Track object 1 state Up decrement 50
+  Load balancing: round-robin
+  Group members:
+    ca03.2c75.001c (10.1.1.3) authenticated
+    ca04.2c92.001c (10.1.1.2) local
+  There are 2 forwarders (1 active)
+  Forwarder 1
+    State is Active
+      3 state changes, last state change 00:10:19
+    MAC address is 0007.b400.0101 (default)
+    Owner ID is ca04.2c92.001c
+    Redirection enabled
+    Preemption enabled, min delay 30 sec
+    Active is local, weighting 100
+    Arp replies sent: 1
+  Forwarder 2
+    State is Listen
+    MAC address is 0007.b400.0102 (learnt)
+    Owner ID is ca03.2c75.001c
+    Redirection enabled, 599.520 sec remaining (maximum 600 sec)
+    Time to live: 14399.520 sec (maximum 14400 sec)
+    Preemption enabled, min delay 30 sec
+    Active is 10.1.1.3 (primary), weighting 100 (expires in 10.944 sec)
 ```
 
-After making shutting down F0/0, priority is decremented by 10 and R2 is now the Standby router
+After making shutting down F0/0, weight is decremented by 50 and the weight is beneath the lower bound.  R2 is no longer used to load balance.
 
 ```cisco
-R2(config-if)#do show standby brief
-                     P indicates configured to preempt.
-                     |
-Interface   Grp  Pri P State   Active          Standby         Virtual IP
-Fa1/0       1    95  P Standby 10.1.1.3        local           10.1.1.1
+R2(config)#do show glbp
+FastEthernet1/0 - Group 1
+  State is Active
+    1 state change, last state change 00:20:45
+  Virtual IP address is 10.1.1.1
+  Hello time 3 sec, hold time 10 sec
+    Next hello sent in 0.480 secs
+  Redirect time 600 sec, forwarder time-out 14400 sec
+  Authentication MD5, key-string
+  Preemption enabled, min delay 0 sec
+  Active is local
+  Standby is 10.1.1.3, priority 100 (expires in 8.608 sec)
+  Priority 110 (configured)
+  Weighting 50, low (configured 100), thresholds: lower 60, upper 80
+    Track object 1 state Down decrement 50
+  Load balancing: round-robin
+  Group members:
+    ca03.2c75.001c (10.1.1.3) authenticated
+    ca04.2c92.001c (10.1.1.2) local
+  There are 2 forwarders (1 active)
+  Forwarder 1
+    State is Active
+      3 state changes, last state change 00:11:44
+    MAC address is 0007.b400.0101 (default)
+    Owner ID is ca04.2c92.001c
+    Redirection enabled
+    Preemption enabled, min delay 30 sec
+    Active is local, weighting 50
+    Arp replies sent: 1
+  Forwarder 2
+    State is Listen
+    MAC address is 0007.b400.0102 (learnt)
+    Owner ID is ca03.2c75.001c
+    Redirection enabled, 598.624 sec remaining (maximum 600 sec)
+    Time to live: 14398.624 sec (maximum 14400 sec)
+    Preemption enabled, min delay 30 sec
+    Active is 10.1.1.3 (primary), weighting 100 (expires in 10.432 sec)
 ```
 
 ## Conclusion
 
-HSRP provides redundancy by providing hosts with a virtual gateway (10.1.1.1)
+GLBP provides redundacy and load balancing by providing hosts with a virtual IP address (10.1.1.1)
 
-Object Tracking links reachability and interface line-protocol status to HSRP
+GLBP weight determines the load balancing ratio between forwarders, higher weight means more packets are sent to that router
 
-When the tracked destination becomes unreachable, R2's HSRP priority decrements by 20.  When f0/0's line-protocol is down then the HSRP priority is decremented by 10
+Weight can be automatically decremented by Object Tracking
 
-HSRP premption enables the higher-priority router to automatically become Active
+Set a lower weight to determine when a router's weight is too low to forward traffic.  The upper weight determines when the router's weight is high enough to start forwarding traffic again.

@@ -49,7 +49,7 @@ trace 10.255.1.1
 ### R2 + R3
 
 ```cisco
-show run | section standbys
+show run | section standby
 show run | section track
 show standby
 show standby brief
