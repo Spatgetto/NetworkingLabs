@@ -20,3 +20,7 @@ Each lab contains:
 
 * [Multi-areaOSPF](./Routing/OSPF/Multi-areaOSPF/)
 * [StubAreasOSPF](./Routing/OSPF/StubAreasOSPF/)
+
+### VPN
+
+* [GREOverIPsec](./VPN/GREOverIPsec/)
