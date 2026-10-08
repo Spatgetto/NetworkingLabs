@@ -18,10 +18,11 @@ Configure a stub area with: `area 1 stub` on every router in the area
 
 Make the stub area totally stubby by including no-summary (only necessary on the ABR): `area 1 stub no-summary`
 
-Make an area into a NSSA with: `area 1 nssa` on every router in the area
+Make an area into an NSSA with: `area 1 nssa` on every router in the area
 
-For a NSSA to reach external destinations the ABR needs to advertise a default route with: `area 1 nssa default-information-originate`
+For an NSSA to reach external destinations the ABR needs to advertise a default route with: `area 1 nssa default-information-originate`
 
+Make an NSSA into a Totally NSSA by adding no-summary on the ABR: `area 1 nssa no-summary`
 
 ### R1
 
@@ -115,7 +116,7 @@ show run | section eigrp
 
 ### R5 Example
 
-Because R5 is in a NSSA area there are no Type 5 External and no Type 4 ASBR Summary LSAs.  However, there is an EIGRP network being redistrubted into this area.  The area needs to be a NSSA so that the redistributed EIGRP routes can be advertised as Type 7 NSSA External instead of the disallowed Type 5 External.
+Because R5 is in an NSSA area there are no Type 5 External and no Type 4 ASBR Summary LSAs.  However, there is an EIGRP network being redistributed into this area.  The area needs to be an NSSA so that the redistributed EIGRP routes can be advertised as Type 7 NSSA External instead of the disallowed Type 5 External.
 
 ```cisco
 R5#show ip ospf database
@@ -156,7 +157,7 @@ Link ID         ADV Router      Age         Seq#       Checksum Tag
 
 ### R8 Verification
 
-R8 is in a totally stubby area.  Instead of indivudal Type 3 Summary LSAs for inter-area networks, the totally stubby area receives one Type 3 Summary LSA advertising a default route (0.0.0.0/0) from the ABR.
+R8 is in a totally stubby area.  Instead of individual  Type 3 Summary LSAs for inter-area networks, the totally stubby area receives one Type 3 Summary LSA advertising a default route (0.0.0.0/0) from the ABR.
 
 ```cisco
 R8#show ip ospf data
@@ -190,4 +191,4 @@ Totally Stubby areas stop Type 3, Type 4, and Type 5 LSAs from entering the area
 
 Not So Stubby areas (NSSAs) stop Type 4 and Type 5 LSAs, but they introduce the Type 7 LSA.  The Type 7 LSA is used to transmit redistributed routes inside of the NSSA area without using Type 5 LSAs.
 
-Totally Not So Stubby areas have the same functionality as NSSAs wile also stopping Type 3 LSAs.
+Totally Not So Stubby areas have the same functionality as NSSAs while also stopping Type 3 LSAs.
