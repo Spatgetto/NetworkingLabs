@@ -18,4 +18,4 @@ What commands are used to ensure everything is working
 
 ## Conclusion
 
-Takeaways from completing this lba
+Takeaways from completing this lab
