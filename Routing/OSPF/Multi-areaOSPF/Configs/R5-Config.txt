@@ -1,10 +1,10 @@
-Current configuration : 1247 bytes
+Current configuration : 1269 bytes
 !
 version 15.2
 service timestamps debug datetime msec
 service timestamps log datetime msec
 !
-hostname R1
+hostname R5
 !
 boot-start-marker
 boot-end-marker
@@ -48,14 +48,15 @@ ip tcp synwait-time 5
 !
 !
 interface Loopback0
- ip address 10.255.1.1 255.255.255.252
+ ip address 10.255.2.5 255.255.255.255
 !
 interface FastEthernet0/0
- ip address 10.0.12.1 255.255.255.252
+ ip address 10.2.35.2 255.255.255.252
  duplex full
 !
 interface FastEthernet1/0
- ip address 10.0.13.1 255.255.255.252
+ no ip address
+ shutdown
  duplex full
 !
 interface FastEthernet2/0
@@ -84,7 +85,8 @@ interface FastEthernet6/0
  duplex full
 !
 router ospf 1
- network 10.0.0.0 0.255.255.255 area 0
+ network 10.255.2.5 0.0.0.0 area 2
+ network 10.0.0.0 0.255.255.255 area 2
 !
 ip forward-protocol nd
 !
