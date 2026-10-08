@@ -10,8 +10,13 @@ Each lab contains:
 
 ## Index
 
+### FHRP
+
 * [GLBP](./FHRPs/GLBP/)
 * [HSRP](./FHRPs/HSRP/)
 * [VRRP](./FHRPs/VRRP/)
+
+### OSPF
+
 * [Multi-areaOSPF](./Routing/OSPF/Multi-areaOSPF/)
 * [StubAreasOSPF](./Routing/OSPF/StubAreasOSPF/)

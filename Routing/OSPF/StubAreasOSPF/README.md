@@ -10,53 +10,95 @@ Configure a multi-area OSPF network with different OSPF stub types (stub, totall
 - OSPF stub areas
 - EIGRP
 - Route redistribution
+- OSPF LSAs
 
 ## Relevant Commands
+
+Configure a stub area with: `area 1 stub` on every router in the area
+
+Make the stub area totally stubby by including no-summary (only necessary on the ABR): `area 1 stub no-summary`
+
+Make an area into a NSSA with: `area 1 nssa` on every router in the area
+
+For a NSSA to reach external destinations the ABR needs to advertise a default route with: `area 1 nssa default-information-originate`
+
 
 ### R1
 
 ```cisco
-router ospf 1
- network 10.255.1.1 0.0.0.0 area 1
- network 10.0.0.0 0.255.255.255 area 1
+router eigrp 1
+ network 10.0.0.0
 ```
 
 ### R2
 
 ```cisco
+router eigrp 1
+ network 10.20.0.0 0.0.255.255
+ network 10.255.2.2 0.0.0.0
+ redistribute ospf 1 metric 10000 100 255 1 1500
+ redistribute eigrp 1 subnets
 router ospf 1
- area 0 range 10.0.0.0 255.255.0.0
- area 0 range 10.255.0.0 255.255.255.0
+ redistribute eigrp 1 subnets
  network 10.0.0.0 0.0.255.255 area 0
- network 10.1.0.0 0.0.255.255 area 1
- network 10.255.0.2 0.0.0.0 area 0
+ network 10.255.2.2 0.0.0.0 area 0
 ```
 
 ### R3
 
 ```cisco
 router ospf 1
- area 0 range 10.0.0.0 255.255.0.0
- area 0 range 10.255.0.0 255.255.255.0
- network 10.0.0.0 0.0.255.255 area 0
- network 10.2.0.0 0.0.255.255 area 2
- network 10.255.0.3 0.0.0.0 area 0
+ network 10.0.0.0 0.255.255.255 area 0
 ```
 
 ### R4
 
 ```cisco
 router ospf 1
- network 10.255.0.4 0.0.0.0 area 0
- network 10.0.0.0 0.255.255.255 area 0
+ area 1 nssa default-information-originate
+ network 10.0.0.0 0.0.255.255 area 0
+ network 10.1.0.0 0.0.255.255 area 1
+ network 10.255.4.4 0.0.0.0 area 0
 ```
 
 ### R5
 
 ```cisco
+router eigrp 1
+ network 10.62.0.0 0.0.255.255
+ network 10.255.5.5 0.0.0.0
+ redistribute ospf 1 metric 10000 100 255 1 1500
 router ospf 1
- network 10.255.2.5 0.0.0.0 area 2
- network 10.0.0.0 0.255.255.255 area 2
+ area 1 nssa
+ redistribute eigrp 1 subnets
+ network 10.1.0.0 0.0.255.255 area 1
+ network 10.255.5.5 0.0.0.0 area 1
+```
+
+### R6
+
+```cisco
+router eigrp 1
+ network 10.0.0.0
+```
+
+### R7
+
+```cisco
+router ospf 1
+ area 2 stub no-summary
+ network 10.0.0.0 0.0.255.255 area 0
+ network 10.2.0.0 0.0.255.255 area 2
+ network 10.255.7.7 0.0.0.0 area 0
+```
+
+### R8
+
+```cisco
+router ospf 1
+ area 2 stub
+ network 10.2.0.0 0.0.255.255 area 2
+ network 10.255.8.8 0.0.0.0 area 2
 ```
 
 ## Verification
@@ -67,77 +109,85 @@ router ospf 1
 show ip ospf neighbors
 show ip route
 show ip ospf database
+show run | section ospf
+show run | section eigrp
 ```
 
-### R1 Examples
+### R5 Example
 
-Use Ping to test reachability
-
-```cisco
-R1#ping 10.255.2.5
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 10.255.2.5, timeout is 2 seconds:
-!!!!!
-```
-
-Routing table has a 10.0.0.0/16 route and a 10.255.0.0/24 route for area 0 showing that the route summarization is working
+Because R5 is in a NSSA area there are no Type 5 External and no Type 4 ASBR Summary LSAs.  However, there is an EIGRP network being redistrubted into this area.  The area needs to be a NSSA so that the redistributed EIGRP routes can be advertised as Type 7 NSSA External instead of the disallowed Type 5 External.
 
 ```cisco
-R1#show ip route
-Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
-       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
-       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
-       E1 - OSPF external type 1, E2 - OSPF external type 2
-       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
-       ia - IS-IS inter area, * - candidate default, U - per-user static route
-       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
-       + - replicated route, % - next hop override
+R5#show ip ospf database
 
-Gateway of last resort is not set
-
-      10.0.0.0/8 is variably subnetted, 7 subnets, 4 masks
-O IA     10.0.0.0/16 [110/2] via 10.1.12.2, 00:23:23, FastEthernet0/0
-C        10.1.12.0/30 is directly connected, FastEthernet0/0
-L        10.1.12.1/32 is directly connected, FastEthernet0/0
-O IA     10.2.35.0/30 [110/3] via 10.1.12.2, 00:23:23, FastEthernet0/0
-O IA     10.255.0.0/24 [110/2] via 10.1.12.2, 00:23:23, FastEthernet0/0
-C        10.255.1.1/32 is directly connected, Loopback0
-O IA     10.255.2.5/32 [110/4] via 10.1.12.2, 00:23:23, FastEthernet0/0
-```
-
-View the OSPF database to see type 3 summary LSAs used to advertise route information from other areas
-
-```cisco
-R1#show ip ospf database
-
-            OSPF Router with ID (10.255.1.1) (Process ID 1)
+            OSPF Router with ID (10.255.5.5) (Process ID 1)
 
                 Router Link States (Area 1)
 
 Link ID         ADV Router      Age         Seq#       Checksum Link count
-10.255.0.2      10.255.0.2      1512        0x80000002 0x00E7FF 1
-10.255.1.1      10.255.1.1      1511        0x80000002 0x00F1DA 2
+10.255.4.4      10.255.4.4      1704        0x80000003 0x00FD92 1
+10.255.5.5      10.255.5.5      1714        0x80000003 0x0083E3 2
 
                 Net Link States (Area 1)
 
 Link ID         ADV Router      Age         Seq#       Checksum
-10.1.12.1       10.255.1.1      1511        0x80000001 0x00EC14
+10.1.45.2       10.255.5.5      1714        0x80000002 0x00823F
 
                 Summary Net Link States (Area 1)
 
 Link ID         ADV Router      Age         Seq#       Checksum
-10.0.0.0        10.255.0.2      1545        0x80000001 0x00AA7B
-10.2.35.0       10.255.0.2      1508        0x80000001 0x0008FA
-10.255.0.0      10.255.0.2      1545        0x80000001 0x00AA7B
-10.255.2.5      10.255.0.2      1508        0x80000001 0x0076A6
+10.0.23.0       10.255.4.4      1704        0x80000002 0x0020E3
+10.0.34.0       10.255.4.4      1704        0x80000002 0x009C5D
+10.0.37.0       10.255.4.4      1704        0x80000002 0x008570
+10.2.78.0       10.255.4.4      1704        0x80000002 0x00B217
+10.255.2.2      10.255.4.4      1704        0x80000002 0x001003
+10.255.3.3      10.255.4.4      1704        0x80000002 0x00F021
+10.255.4.4      10.255.4.4      1704        0x80000002 0x00D13F
+10.255.7.7      10.255.4.4      1704        0x80000002 0x00A662
+10.255.8.8      10.255.4.4      1704        0x80000002 0x009B6A
+
+                Type-7 AS External Link States (Area 1)
+
+Link ID         ADV Router      Age         Seq#       Checksum Tag
+0.0.0.0         10.255.4.4      1704        0x80000002 0x007C22 0
+10.62.56.0      10.255.5.5      1714        0x80000002 0x00C12E 0
+10.255.6.6      10.255.5.5      1714        0x80000004 0x00A6AE 0
+```
+
+### R8 Verification
+
+R8 is in a totally stubby area.  Instead of indivudal Type 3 Summary LSAs for inter-area networks, the totally stubby area receives one Type 3 Summary LSA advertising a default route (0.0.0.0/0) from the ABR.
+
+```cisco
+R8#show ip ospf data
+
+            OSPF Router with ID (10.255.8.8) (Process ID 1)
+
+                Router Link States (Area 2)
+
+Link ID         ADV Router      Age         Seq#       Checksum Link count
+10.255.7.7      10.255.7.7      1863        0x80000003 0x00F653 1
+10.255.8.8      10.255.8.8      1889        0x80000003 0x00E832 2
+
+                Net Link States (Area 2)
+
+Link ID         ADV Router      Age         Seq#       Checksum
+10.2.78.2       10.255.8.8      1889        0x80000002 0x00E5AF
+
+                Summary Net Link States (Area 2)
+
+Link ID         ADV Router      Age         Seq#       Checksum
+0.0.0.0         10.255.7.7      1863        0x80000002 0x00F92B
 ```
 
 ## Conclusion
 
-OSPF uses areas to divide the network into smaller logical sections. Type 1 (Router) and Type 2 (Network) LSAs remain within their respective areas, while Type 3 Summary LSAs are used by ABRs to advertise routes between areas.
+OSPF uses stub areas to reduce the size of the routing table.  Additionally, the LSDB is smaller and uses less memory and CPU for SPF calculations.
 
-Area 0 is the OSPF backbone area, and non-backbone areas must have a connection to Area 0 in a standard multi-area OSPF design.
+Stub areas stop Type 5 External and Type 4 ASBR Summary LSAs from entering the stub.  Instead, the ABR injects a default route so the stub area can reach external destinations.
 
-The `area range` command is configured on an ABR to summarize routes originating within a area before advertising them into other OSPF areas. In this lab, R2 and R3 use `area 0 range` to summarize Area 0 routes into the `10.0.0.0/16` and `10.255.0.0/24` prefixes.
+Totally Stubby areas stop Type 3, Type 4, and Type 5 LSAs from entering the area.  Instead of these LSAs, the ABR injects a default route.
 
-The routing table on R1 confirms that these summarized routes are being learned as OSPF inter-area (`O IA`) routes. The OSPF database also shows Type 3 Summary LSAs being generated by the ABR to advertise routes between areas.
+Not So Stubby areas (NSSAs) stop Type 4 and Type 5 LSAs, but they introduce the Type 7 LSA.  The Type 7 LSA is used to transmit redistributed routes inside of the NSSA area without using Type 5 LSAs.
+
+Totally Not So Stubby areas have the same functionality as NSSAs wile also stopping Type 3 LSAs.
