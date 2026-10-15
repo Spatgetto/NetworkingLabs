@@ -1,14 +1,17 @@
-# Multi-area OSPF Lab
+# Dual-ISP BGP, PAT, and Automatic Failover
 
 ## Objective
 
-Configure a multi-area OSPF network with route summarization
+Configure a dual-multihomed BGP connection to two ISPs.  
 
 ## Key Technologies
 
-- OSPFv2
-- OSPF route summarization
-- OSPF areas
+- eBGP
+- iBGP
+- Cisco BGP Weight
+- NAT Overload
+- ISP Redundancy
+- Route Maps
 
 ## Relevant Commands
 
