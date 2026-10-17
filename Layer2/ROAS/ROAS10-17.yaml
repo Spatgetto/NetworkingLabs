@@ -1,0 +1,415 @@
+annotations:
+  - border_color: '#808080FF'
+    border_style: ''
+    color: '#FFFFFFFF'
+    line_end: null
+    line_start: null
+    thickness: 1
+    type: line
+    x1: -120.0
+    y1: -200.0
+    x2: -120.0
+    y2: -200.0
+    z_index: 0
+  - border_color: '#808080FF'
+    border_style: ''
+    color: '#FFFFFFFF'
+    line_end: null
+    line_start: null
+    thickness: 1
+    type: line
+    x1: 0.0
+    y1: -200.0
+    x2: 0.0
+    y2: -200.0
+    z_index: 1
+smart_annotations: []
+nodes:
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          Building configuration...
+
+          Current configuration : 1255 bytes
+          !
+          ! Last configuration change at 20:20:34 UTC Sat Oct 17 2026
+          !
+          version 17.18
+          service timestamps debug datetime msec
+          service timestamps log datetime msec
+          !
+          hostname R1
+          !
+          boot-start-marker
+          boot-end-marker
+          !
+          !
+          no logging console
+          no aaa new-model
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          ip cef
+          login on-success log
+          no ipv6 cef
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          memory free low-watermark processor 79866
+          !
+          !
+          spanning-tree mode rapid-pvst
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          interface Ethernet0/0
+           no ip address
+          !
+          interface Ethernet0/0.10
+           encapsulation dot1Q 10
+           ip address 192.168.10.1 255.255.255.0
+          !
+          interface Ethernet0/0.20
+           encapsulation dot1Q 20
+           ip address 192.168.20.1 255.255.255.0
+          !
+          interface Ethernet0/0.30
+           encapsulation dot1Q 30
+           ip address 192.168.30.1 255.255.255.0
+          !
+          interface Ethernet0/1
+           no ip address
+           shutdown
+          !
+          interface Ethernet0/2
+           no ip address
+           shutdown
+          !
+          interface Ethernet0/3
+           no ip address
+           shutdown
+          !
+          ip forward-protocol nd
+          !
+          !
+          ip http server
+          ip http secure-server
+          ip ssh bulk-mode 131072
+          no logging btrace
+          !
+          !
+          !
+          control-plane
+          !
+          !
+          !
+          line con 0
+           exec-timeout 0 0
+           activation-character 13
+           logging synchronous
+          line aux 0
+           activation-character 13
+          line vty 0 4
+           exec-timeout 0 0
+           activation-character 13
+           login
+           transport input ssh
+          !
+          !
+          !
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n0
+    image_definition: null
+    label: R1
+    node_definition: iol-xe
+    parameters: {}
+    priority: null
+    pyats:
+      username: null
+      password: null
+      enable_password: null
+    ram: null
+    tags: []
+    x: -120
+    y: -240
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: Ethernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Ethernet0/1
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Ethernet0/2
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Ethernet0/3
+        mac_address: null
+        type: physical
+        slot: 3
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: "Building configuration...\n\nCurrent configuration : 3380 bytes\n\
+          !\n! Last configuration change at 20:20:23 UTC Sat Oct 17 2026\n!\nversion\
+          \ 17.18\nservice timestamps debug datetime msec\nservice timestamps log\
+          \ datetime msec\n!\nhostname SW1\n!\nboot-start-marker\nboot-end-marker\n\
+          !\n!\nno logging console\nno aaa new-model\n!\n!\n!\n!\n!\n!\n!\n!\n!\n\
+          !\n!\n!\n!\nip audit notify log\nip audit po max-events 100\nip cef\nlogin\
+          \ on-success log\nno ipv6 cef\n!\n!\n!\n!\n!\n!\n!\n!\ncrypto pki trustpoint\
+          \ TP-self-signed-2039811\n enrollment selfsigned\n subject-name cn=IOS-Self-Signed-Certificate-2039811\n\
+          \ revocation-check none\n rsakeypair TP-self-signed-2039811\n hash sha512\n\
+          !\n!\ncrypto pki certificate chain TP-self-signed-2039811\n certificate\
+          \ self-signed 01\n  3082032A 30820212 A0030201 02020101 300D0609 2A864886\
+          \ F70D0101 0D050030\n  2E312C30 2A060355 04030C23 494F532D 53656C66 2D536967\
+          \ 6E65642D 43657274\n  69666963 6174652D 32303339 38313130 1E170D32 36313031\
+          \ 37313934 3334355A\n  170D3336 31303136 31393433 34355A30 2E312C30 2A060355\
+          \ 04030C23 494F532D\n  53656C66 2D536967 6E65642D 43657274 69666963 6174652D\
+          \ 32303339 38313130\n  82012230 0D06092A 864886F7 0D010101 05000382 010F0030\
+          \ 82010A02 82010100\n  CF7854F3 3F7BBAAD 4257DE07 A9EC4542 E5C9EA95 B83705C7\
+          \ E807A6BE 0AAAADF2\n  51A83846 E15B74BB 6F758829 977268F1 C8A53562 F4022B0B\
+          \ 29A9C310 5CD5CC2F\n  5F79224B ED56538E B4671014 FF455DA7 E8F0447C 1AEEDCA8\
+          \ 2809963A 8C8A302B\n  F092952C B8D60700 0C3CDB86 B840FC29 9FD13703 B5A4B4F3\
+          \ 75903E85 7E733FF3\n  9973E955 828AE4BD 4FE3EDBC F1AC8E19 47E02ABE 45D19D6B\
+          \ FB841EF9 F1392A3D\n  70A4C405 882D321F 9EA90996 D601E47A 123A99BD 14EBD52A\
+          \ 6421E475 9FDC0650\n  35A9B6F4 B69381FC C51AE542 8E1A1B25 891CF5B7 E6AD2CAD\
+          \ 61D00B35 00EE21A8\n  DB1EF6C5 49BDB2E2 CDAEC703 293A9C3C D9432B6D 0227D7AC\
+          \ 72343A8C 6AE3434F\n  02030100 01A35330 51301D06 03551D0E 04160414 F051BE60\
+          \ 5117F2C6 392C613F\n  47B5490D 017AEA9C 301F0603 551D2304 18301680 14F051BE\
+          \ 605117F2 C6392C61\n  3F47B549 0D017AEA 9C300F06 03551D13 0101FF04 05300301\
+          \ 01FF300D 06092A86\n  4886F70D 01010D05 00038201 010082BA AE13E4C2 B29DDAA4\
+          \ EBB87C95 4EB7C349\n  6FCE7112 8BD933FB D24C5C58 3764ED28 95244F95 31ED4587\
+          \ 56E81CBC 33D307F7\n  BD8B6E1D F1B740E4 E2F84570 227D0048 0C64FA7F DBEA49F1\
+          \ 0947B973 1D5EC0D5\n  785ED239 313084E0 6A9F8D90 4FE721BC D686E348 AC8186C2\
+          \ 3A9129BD C5E4B459\n  65E36F48 AFC97D9D 0FA1E9F9 3576C1FB EE880EBF 40E7139F\
+          \ 16ABF20D 68FF81A6\n  CFC2155A 3F988F68 7E228A83 731BD755 F3BA97BD 50210E8E\
+          \ 4184C964 25F8695D\n  E0DE23C9 AC92AC6A CA971EEE 62EABD7A B440F53C 5F4A6E33\
+          \ 4AD9CD05 0DF1126A\n  4495C8D2 89F79634 AD58EA29 3DC1C95E DD87F95F 07E61F85\
+          \ 241F9F8A 7645F730\n  5C3C18B8 572FFF9F 6BD0A9B4 1DF6\n  \tquit\n!\n!\n\
+          memory free low-watermark processor 79236\n!\n!\nspanning-tree mode rapid-pvst\n\
+          spanning-tree extend system-id\n!\n!\nvlan internal allocation policy ascending\n\
+          !\n!\n!\n!\n!\ninterface Ethernet0/0\n switchport trunk encapsulation dot1q\n\
+          \ switchport trunk native vlan 99\n switchport trunk allowed vlan 10,20,30\n\
+          \ switchport mode trunk\n!\ninterface Ethernet0/1\n switchport access vlan\
+          \ 10\n switchport mode access\n!\ninterface Ethernet0/2\n switchport access\
+          \ vlan 20\n switchport mode access\n!\ninterface Ethernet0/3\n switchport\
+          \ access vlan 30\n switchport mode access\n!\nip forward-protocol nd\n!\n\
+          !\nip http server\nip http secure-server\nip ssh bulk-mode 131072\n!\nno\
+          \ logging btrace\n!\n!\n!\ncontrol-plane\n!\n!\n!\nline con 0\n exec-timeout\
+          \ 0 0\n logging synchronous\nline aux 0\nline vty 0 4\n exec-timeout 0 0\n\
+          \ login\n transport input ssh\n!\n!\nend"
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n1
+    image_definition: null
+    label: SW1
+    node_definition: ioll2-xe
+    parameters: {}
+    priority: null
+    pyats:
+      username: null
+      password: null
+      enable_password: null
+    ram: null
+    tags: []
+    x: -120
+    y: -80
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: Ethernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Ethernet0/1
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Ethernet0/2
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Ethernet0/3
+        mac_address: null
+        type: physical
+        slot: 3
+  - boot_disk_size: null
+    configuration: []
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n2
+    image_definition: null
+    label: PC2
+    node_definition: server
+    parameters: {}
+    priority: null
+    pyats:
+      username: null
+      password: null
+      enable_password: null
+    ram: null
+    tags: []
+    x: -120
+    y: 80
+    interfaces:
+      - id: i0
+        label: eth0
+        mac_address: null
+        type: physical
+        slot: 0
+  - boot_disk_size: null
+    configuration: []
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n3
+    image_definition: null
+    label: PC1
+    node_definition: server
+    parameters: {}
+    priority: null
+    pyats:
+      username: null
+      password: null
+      enable_password: null
+    ram: null
+    tags: []
+    x: -240
+    y: 80
+    interfaces:
+      - id: i0
+        label: eth0
+        mac_address: null
+        type: physical
+        slot: 0
+  - boot_disk_size: null
+    configuration: []
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n4
+    image_definition: null
+    label: PC3
+    node_definition: server
+    parameters: {}
+    priority: null
+    pyats:
+      username: null
+      password: null
+      enable_password: null
+    ram: null
+    tags: []
+    x: 0
+    y: 80
+    interfaces:
+      - id: i0
+        label: eth0
+        mac_address: null
+        type: physical
+        slot: 0
+links:
+  - id: l0
+    n1: n0
+    n2: n1
+    i1: i1
+    i2: i1
+    conditioning: {}
+    label: iol-0-Ethernet0/0<->iol-l2-0-Ethernet0/0
+  - id: l1
+    n1: n1
+    n2: n3
+    i1: i2
+    i2: i0
+    conditioning: {}
+    label: SW1-Ethernet0/1<->server-1-eth0
+  - id: l2
+    n1: n1
+    n2: n2
+    i1: i3
+    i2: i0
+    conditioning: {}
+    label: SW1-Ethernet0/2<->server-0-eth0
+  - id: l3
+    n1: n1
+    n2: n4
+    i1: i4
+    i2: i0
+    conditioning: {}
+    label: SW1-Ethernet0/3<->server-2-eth0
+lab:
+  description: ''
+  notes: ''
+  title: ROAS10-17
+  node_staging:
+    enabled: false
+    start_remaining: true
+    abort_on_failure: false
+  version: 0.3.1
