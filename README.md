@@ -1,6 +1,6 @@
 # NetworkingLabs
 
-A collection of networking labs completed using GNS3 and Cisco IOS.
+A collection of networking labs completed using GNS3 and CML.
 
 Each lab contains:
 
