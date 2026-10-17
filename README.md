@@ -10,6 +10,12 @@ Each lab contains:
 
 ## Index
 
+### Layer 2
+
+| Title | Link | Key Technologies | Software |
+| --- | --- | --- | --- |
+| ROAS | [View Lab](./Layer2/ROAS/) | ROAS, Vlans, Trunk Interfaces, Router subinterfaces | CML |
+
 ### FHRP
 
 | Title | Link | Key Technologies | Software |
