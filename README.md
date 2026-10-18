@@ -17,6 +17,7 @@ Each lab contains:
 | --- | --- | --- | --- |
 | ROAS | [View Lab](./Layer2/ROAS/) | ROAS, Vlans, Trunk Interfaces, Router subinterfaces | CML |
 | MST | [View Lab](./Layer2/MST/) | MST, VTP | CML |
+| EtherChannel | [View Lab](./Layer2/EtherChannel/) | EtherChannel, LACP, PAgP | CML |
 
 ### FHRP
 
