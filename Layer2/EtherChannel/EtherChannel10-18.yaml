@@ -1,0 +1,383 @@
+annotations: []
+smart_annotations: []
+nodes:
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: "Building configuration...\n\nCurrent configuration : 3330 bytes\n\
+          !\n! Last configuration change at 21:16:23 UTC Sun Oct 18 2026\n!\nversion\
+          \ 17.18\nservice timestamps debug datetime msec\nservice timestamps log\
+          \ datetime msec\n!\nhostname SW0\n!\nboot-start-marker\nboot-end-marker\n\
+          !\n!\nno logging console\nno aaa new-model\n!\n!\n!\n!\n!\n!\n!\n!\n!\n\
+          !\n!\n!\n!\nip audit notify log\nip audit po max-events 100\nip cef\nlogin\
+          \ on-success log\nno ipv6 cef\n!\n!\n!\n!\n!\n!\n!\n!\ncrypto pki trustpoint\
+          \ TP-self-signed-2039817\n enrollment selfsigned\n subject-name cn=IOS-Self-Signed-Certificate-2039817\n\
+          \ revocation-check none\n rsakeypair TP-self-signed-2039817\n hash sha512\n\
+          !\n!\ncrypto pki certificate chain TP-self-signed-2039817\n certificate\
+          \ self-signed 01\n  3082032A 30820212 A0030201 02020101 300D0609 2A864886\
+          \ F70D0101 0D050030\n  2E312C30 2A060355 04030C23 494F532D 53656C66 2D536967\
+          \ 6E65642D 43657274\n  69666963 6174652D 32303339 38313730 1E170D32 36313031\
+          \ 38323131 3430355A\n  170D3336 31303137 32313134 30355A30 2E312C30 2A060355\
+          \ 04030C23 494F532D\n  53656C66 2D536967 6E65642D 43657274 69666963 6174652D\
+          \ 32303339 38313730\n  82012230 0D06092A 864886F7 0D010101 05000382 010F0030\
+          \ 82010A02 82010100\n  B5CC461F 635987B0 AF21EBC8 8F9B023E 9F1A8F4B F747A966\
+          \ 5826EDF1 293CDA28\n  A53B4668 0CEFCE3E 4F981B70 9DFAB6E0 BC11399C EC667F2B\
+          \ A260578A 97E425C9\n  4BD4E953 B4F1E4FF 097DEB10 E3B11F82 CABF07FC 36870DE7\
+          \ FF71A0F0 04DE834F\n  2843EB41 77D7E4BE C6727CDD 39568612 ADD98E0B 38FD175E\
+          \ 7DD884F5 38481CEE\n  3874B280 6F95FE97 A145BAC7 5FD51928 069506BA 0414A848\
+          \ 57D5856D 7DDFC3BE\n  3EB5000B 37C0C53E D7C369E7 7C7AAEA5 9ED8CA40 542CD111\
+          \ 512B1BD8 EA439171\n  0A9E7150 061ACD93 88BCB973 C5886993 2596D49C 273D11E3\
+          \ 0ED0F9CD 6A2EAAA4\n  DF06017A F1D43D95 0F16BAFB 11D1A8CB A278E37F E0B2588C\
+          \ D89363D9 61DC5C89\n  02030100 01A35330 51301D06 03551D0E 04160414 10115F43\
+          \ 2B39BE79 76694AAE\n  E5F727BE C071B5E4 301F0603 551D2304 18301680 1410115F\
+          \ 432B39BE 7976694A\n  AEE5F727 BEC071B5 E4300F06 03551D13 0101FF04 05300301\
+          \ 01FF300D 06092A86\n  4886F70D 01010D05 00038201 0100A609 97C82421 046DF6DB\
+          \ 3AE0BF9A 38578BA8\n  A70387A7 3EFA1E5E 450B6246 C4AB7C25 535D5DE2 27F606A7\
+          \ F6971C8E 3030FC11\n  9828A1A6 F46ADDDE E5D1679A 3739EF80 E3BE6043 7AD0C0AD\
+          \ 1A186F4E 83E7713B\n  91ACA6E9 664A0E3E 7E98497F 1CAEC651 CA39F61D 9AD957B2\
+          \ BD5745EF 96569DAD\n  478652B5 8AFE93C4 3A2B2086 B36F6B46 DE109D8C 3F2AB5DB\
+          \ 38C03096 57560876\n  66B08A1A 41C61359 693646F8 18727FB0 9ECE524F 6EA13A91\
+          \ 4AC7FDAF 3798883D\n  F3F8294C FFFF0695 5278A609 162A81D2 8F5001FB 0A897AEA\
+          \ 9CEFC2AB 138DD99C\n  2F0CEF0A 1AD6D494 AC949D8C D58B76C0 A5421E6A E7A5BA43\
+          \ A745558E 60669A72\n  8D2E971E BE1277DD ABCCA711 26F0\n  \tquit\n!\n!\n\
+          memory free low-watermark processor 79236\n!\n!\nspanning-tree mode rapid-pvst\n\
+          spanning-tree extend system-id\n!\n!\nvlan internal allocation policy ascending\n\
+          !\n!\n!\n!\n!\ninterface Port-channel1\n switchport access vlan 10\n switchport\
+          \ mode access\n!\ninterface Ethernet0/0\n switchport access vlan 10\n switchport\
+          \ mode access\n channel-group 1 mode active\n!\ninterface Ethernet0/1\n\
+          \ switchport access vlan 10\n switchport mode access\n channel-group 1 mode\
+          \ active\n!\ninterface Ethernet0/2\n!\ninterface Ethernet0/3\n!\nip forward-protocol\
+          \ nd\n!\n!\nip http server\nip http secure-server\nip ssh bulk-mode 131072\n\
+          !\nno logging btrace\n!\n!\n!\ncontrol-plane\n!\n!\n!\nline con 0\n exec-timeout\
+          \ 0 0\n logging synchronous\nline aux 0\nline vty 0 4\n exec-timeout 0 0\n\
+          \ login\n transport input ssh\n!\n!\nend"
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n0
+    image_definition: null
+    label: SW0
+    node_definition: ioll2-xe
+    parameters: {}
+    priority: null
+    pyats:
+      username: null
+      password: null
+      enable_password: null
+    ram: null
+    tags: []
+    x: -360
+    y: 0
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: Ethernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Ethernet0/1
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Ethernet0/2
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Ethernet0/3
+        mac_address: null
+        type: physical
+        slot: 3
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: "Building configuration...\n\nCurrent configuration : 3710 bytes\n\
+          !\n! Last configuration change at 21:18:19 UTC Sun Oct 18 2026\n!\nversion\
+          \ 17.18\nservice timestamps debug datetime msec\nservice timestamps log\
+          \ datetime msec\n!\nhostname SW1\n!\nboot-start-marker\nboot-end-marker\n\
+          !\n!\nno logging console\nno aaa new-model\n!\n!\n!\n!\n!\n!\n!\n!\n!\n\
+          !\n!\n!\n!\nip audit notify log\nip audit po max-events 100\nip cef\nlogin\
+          \ on-success log\nno ipv6 cef\n!\n!\n!\n!\n!\n!\n!\n!\ncrypto pki trustpoint\
+          \ TP-self-signed-2039818\n enrollment selfsigned\n subject-name cn=IOS-Self-Signed-Certificate-2039818\n\
+          \ revocation-check none\n rsakeypair TP-self-signed-2039818\n hash sha512\n\
+          !\n!\ncrypto pki certificate chain TP-self-signed-2039818\n certificate\
+          \ self-signed 01\n  3082032A 30820212 A0030201 02020101 300D0609 2A864886\
+          \ F70D0101 0D050030\n  2E312C30 2A060355 04030C23 494F532D 53656C66 2D536967\
+          \ 6E65642D 43657274\n  69666963 6174652D 32303339 38313830 1E170D32 36313031\
+          \ 38323131 3430315A\n  170D3336 31303137 32313134 30315A30 2E312C30 2A060355\
+          \ 04030C23 494F532D\n  53656C66 2D536967 6E65642D 43657274 69666963 6174652D\
+          \ 32303339 38313830\n  82012230 0D06092A 864886F7 0D010101 05000382 010F0030\
+          \ 82010A02 82010100\n  904E43F1 FB8B5D65 0FEE8A23 6DEF4FA6 A1C7F547 387F83C3\
+          \ 1F9386A1 14A40799\n  0EF74C59 2E1B5659 6FCEEEC8 9772C4B7 1B89CC5C 1D213ABB\
+          \ 22A72AAB F0929070\n  838876EE B4455BC2 E35E1086 B7825317 B0F07350 E0E2AAB4\
+          \ 046B177D 11FDA730\n  3C1F0252 7C11845C 3EE23E01 8B1BDD11 609AFA87 C0EB4065\
+          \ D5DF7141 76189AFD\n  335A4C7E F27E7842 D67BA88A 7F09ADE6 A0A1E5D7 369534CA\
+          \ F5467914 1FCCDC33\n  579158BE 059ADDFF BF97FB54 B5EA3172 930766B6 41B0D1B2\
+          \ 3FECF0D7 8BBF365A\n  E4201762 60CE8B8A E78A38CA 02A01B6D 59E5C1FD A4460AD9\
+          \ 12C06A6A B379D0E6\n  434FFCCD 12332945 E7429805 BF5F3837 66A69029 E9179343\
+          \ EADA00DA 867201A3\n  02030100 01A35330 51301D06 03551D0E 04160414 101F26A3\
+          \ AE18F567 7908E4C1\n  3188C64C 065C2B9F 301F0603 551D2304 18301680 14101F26\
+          \ A3AE18F5 677908E4\n  C13188C6 4C065C2B 9F300F06 03551D13 0101FF04 05300301\
+          \ 01FF300D 06092A86\n  4886F70D 01010D05 00038201 0100470A A0EEFD5D 138275E7\
+          \ F74E18EF 3DFD9189\n  EEA84040 23779216 EF744CE7 E1850615 6CE388BD 09F4F2EF\
+          \ 9C599321 3B89F672\n  EDBD0065 34BB1843 138EEC89 D3714F7F 887CB416 942380DB\
+          \ 5ADDFD26 78ED814C\n  B668EC7C 4D538141 1B45ED44 B76B76B0 6EF88A40 FE0636BB\
+          \ F222925C C4D2C8C3\n  80E009BB CD0AF4B4 E4518235 D761DDB9 C4C5E337 5C3C0E77\
+          \ 86B2A9D7 1423D0C3\n  F7CD007D FBE95E9B 186E225F 109D891B 96A43BEC 0EE57C77\
+          \ 6700EE7B 34020EB7\n  3167006A 632DB3E4 261F0BA0 74098498 9CAB9D81 D5CA1A70\
+          \ 97D1F761 B1C705E5\n  A9B88A5C 984561C8 67E3511C 6FC5C3E7 1C04844B 74FE566A\
+          \ FD49A631 B5017C75\n  49EA7D8C 3C328827 87E8C847 59DD\n  \tquit\n!\n!\n\
+          memory free low-watermark processor 79236\n!\n!\nspanning-tree mode rapid-pvst\n\
+          spanning-tree extend system-id\n!\n!\nvlan internal allocation policy ascending\n\
+          !\n!\n!\n!\n!\ninterface Port-channel1\n switchport access vlan 10\n switchport\
+          \ mode access\n!\ninterface Port-channel2\n switchport access vlan 10\n\
+          \ switchport trunk allowed vlan 10,20,30,40\n switchport mode dynamic desirable\n\
+          !\ninterface Ethernet0/0\n switchport access vlan 10\n switchport mode access\n\
+          \ channel-group 1 mode passive\n!\ninterface Ethernet0/1\n switchport access\
+          \ vlan 10\n switchport trunk allowed vlan 10,20,30,40\n switchport mode\
+          \ dynamic desirable\n channel-group 2 mode desirable\n!\ninterface Ethernet0/2\n\
+          \ switchport access vlan 10\n switchport mode access\n channel-group 1 mode\
+          \ passive\n!\ninterface Ethernet0/3\n switchport trunk allowed vlan 10,20,30,40\n\
+          \ switchport mode dynamic desirable\n channel-group 2 mode desirable\n!\n\
+          ip forward-protocol nd\n!\n!\nip http server\nip http secure-server\nip\
+          \ ssh bulk-mode 131072\n!\nno logging btrace\n!\n!\n!\ncontrol-plane\n!\n\
+          !\n!\nline con 0\n exec-timeout 0 0\n logging synchronous\nline aux 0\n\
+          line vty 0 4\n exec-timeout 0 0\n login\n transport input ssh\n!\n!\nend"
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n1
+    image_definition: null
+    label: SW1
+    node_definition: ioll2-xe
+    parameters: {}
+    priority: null
+    pyats:
+      username: null
+      password: null
+      enable_password: null
+    ram: null
+    tags: []
+    x: -80
+    y: 0
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: Ethernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Ethernet0/1
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Ethernet0/2
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Ethernet0/3
+        mac_address: null
+        type: physical
+        slot: 3
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          Building configuration...
+
+          Current configuration : 1216 bytes
+          !
+          ! Last configuration change at 21:19:00 UTC Sun Oct 18 2026
+          !
+          version 17.18
+          service timestamps debug datetime msec
+          service timestamps log datetime msec
+          !
+          hostname SW2
+          !
+          boot-start-marker
+          boot-end-marker
+          !
+          !
+          no logging console
+          no aaa new-model
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          ip audit notify log
+          ip audit po max-events 100
+          ip cef
+          login on-success log
+          no ipv6 cef
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          memory free low-watermark processor 79236
+          !
+          !
+          spanning-tree mode rapid-pvst
+          spanning-tree extend system-id
+          !
+          !
+          vlan internal allocation policy ascending
+          !
+          !
+          !
+          !
+          !
+          interface Port-channel2
+           switchport trunk allowed vlan 10,20,30,40
+           switchport mode dynamic desirable
+          !
+          interface Ethernet0/0
+           switchport trunk allowed vlan 10,20,30,40
+           switchport mode dynamic desirable
+           channel-group 2 mode auto
+          !
+          interface Ethernet0/1
+           switchport trunk allowed vlan 10,20,30,40
+           switchport mode dynamic desirable
+           channel-group 2 mode auto
+          !
+          interface Ethernet0/2
+          !
+          interface Ethernet0/3
+          !
+          ip forward-protocol nd
+          !
+          !
+          ip http server
+          ip http secure-server
+          ip ssh bulk-mode 131072
+          !
+          no logging btrace
+          !
+          !
+          !
+          control-plane
+          !
+          !
+          !
+          line con 0
+           exec-timeout 0 0
+           logging synchronous
+          line aux 0
+          line vty 0 4
+           exec-timeout 0 0
+           login
+           transport input ssh
+          !
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n2
+    image_definition: null
+    label: SW2
+    node_definition: ioll2-xe
+    parameters: {}
+    priority: null
+    pyats:
+      username: null
+      password: null
+      enable_password: null
+    ram: null
+    tags: []
+    x: 200
+    y: 0
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: Ethernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Ethernet0/1
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Ethernet0/2
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Ethernet0/3
+        mac_address: null
+        type: physical
+        slot: 3
+links:
+  - id: l0
+    n1: n0
+    n2: n1
+    i1: i1
+    i2: i1
+    conditioning: {}
+    label: iol-l2-0-Ethernet0/0<->iol-l2-1-Ethernet0/0
+  - id: l1
+    n1: n1
+    n2: n2
+    i1: i2
+    i2: i1
+    conditioning: {}
+    label: iol-l2-1-Ethernet0/1<->iol-l2-2-Ethernet0/0
+  - id: l2
+    n1: n0
+    n2: n1
+    i1: i2
+    i2: i3
+    conditioning: {}
+    label: SW0-Ethernet0/1<->SW1-Ethernet0/2
+  - id: l3
+    n1: n1
+    n2: n2
+    i1: i4
+    i2: i2
+    conditioning: {}
+    label: SW1-Ethernet0/3<->SW2-Ethernet0/1
+lab:
+  description: ''
+  notes: ''
+  title: EtherChannel10-18
+  node_staging:
+    enabled: false
+    start_remaining: true
+    abort_on_failure: false
+  version: 0.3.1
