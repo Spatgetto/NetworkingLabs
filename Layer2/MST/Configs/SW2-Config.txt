@@ -1,0 +1,105 @@
+Current configuration : 1205 bytes
+!
+! Last configuration change at 19:55:47 UTC Sun Oct 18 2026
+!
+version 17.18
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname SW2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no logging console
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip audit notify log
+ip audit po max-events 100
+ip cef
+login on-success log
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+memory free low-watermark processor 79236
+!
+!
+spanning-tree mode mst
+spanning-tree extend system-id
+!
+spanning-tree mst configuration
+ name REGION23
+ revision 1
+ instance 1 vlan 1-2
+ instance 2 vlan 3-10
+!
+!
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ switchport trunk native vlan 99
+!
+interface Ethernet0/1
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 1-5
+ switchport mode dynamic desirable
+!
+interface Ethernet0/2
+ switchport trunk native vlan 99
+ switchport mode dynamic desirable
+!
+interface Ethernet0/3
+!
+ip forward-protocol nd
+!
+!
+ip http server
+ip http secure-server
+ip ssh bulk-mode 131072
+!
+no logging btrace
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ exec-timeout 0 0
+ login
+ transport input ssh
+!
+!
+end
