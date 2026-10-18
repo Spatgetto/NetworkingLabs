@@ -28,7 +28,7 @@ vtp mode client
 vtp version 3
 ```
 
-### MST Region 01
+### MST Region 01 (SW0, SW1)
 
 ```cisco
 spanning-tree mode mst
@@ -39,7 +39,7 @@ spanning-tree mst configuration
  instance 2 vlan 6-10
 ```
 
-### MST Region 23
+### MST Region 23 (SW2, SW3)
 
 ```cisco
 spanning-tree mode mst
@@ -50,7 +50,7 @@ spanning-tree mst configuration
  instance 2 vlan 3-10
 ```
 
-### MST Region 4
+### MST Region 4 (SW4)
 
 ```cisco
 spanning-tree mode mst
