@@ -81,4 +81,4 @@ Confirm that devices in different VLANs can communicate through the router.
 
 ## Conclusion
 
-Router on a Stick enables inter-vlan routing using 802.1Q subinterfaces.  VLANs provide logical network segmentation, while trunk links carry traffic from multiple VLANs between switches and the router. Successful connectivity tests verified that the router could route traffic between the configured VLANs.
+Router-on-a-Stick allows communication between VLANs using 802.1Q subinterfaces. VLANs separate network traffic, and trunk links carry multiple VLANs. Successful pings verified connectivity between VLANs.
