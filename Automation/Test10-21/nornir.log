@@ -1,0 +1,3 @@
+2026-10-21 10:05:37,034 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_command' with args {'command_string': 'show ip interface brief'} on 3 hosts
+2026-10-21 13:06:33,911 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_command' with args {'command_string': 'show ip interface brief'} on 3 hosts
+2026-10-21 13:18:14,450 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_command' with args {'command_string': 'show ip interface brief'} on 3 hosts

@@ -1,0 +1,11 @@
+---
+- name: Test10-21
+  connection: network_cli
+  gather_facts: false
+  hosts: all
+  tasks:
+    - name: backup
+      ios_config:
+        backup: yes
+      register: backup_result_location
+      when: ansible_network_os == 'ios'
