@@ -1,0 +1,18 @@
+---
+- name: Backup Configuration Files
+  hosts: " {{ lookup('env', 'hosts') }} "
+  connection: network_cli
+  gather_facts: false
+
+  tasks:
+    - name: Backup running config
+      cisco.ios.ios_config:
+        backup: true
+        backup_options:
+          filename: "{{ inventory_hostname }}.cfg"
+          dir_path: "{{ lookup('env', 'backup_dir') }}"
+      register: backup_result
+
+    - name: Show where the backup was saved
+      ansible.builtin.debug:
+        msg: "Saved to {{ backup_result.backup_path }}"
