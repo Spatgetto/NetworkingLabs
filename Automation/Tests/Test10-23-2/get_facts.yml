@@ -10,3 +10,7 @@
     - name: Show facts output
       debug:
         var: facts_output.ansible_facts
+
+    - name: Show image
+      debug:
+        msg: "{{ facts_output.ansible_facts.ansible_net_image }}"
