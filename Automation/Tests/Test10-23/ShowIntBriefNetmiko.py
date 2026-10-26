@@ -11,5 +11,7 @@ for device in devices:
     net_connect = ConnectHandler(**device)
     output = net_connect.send_command("show ip interface brief")
     print(f"Output from {device['host']}:\n{output}\n")
+    output2 = net_connect.send_config_set("logging buffered 10000")
+    print(f"Output from {device['host']}:\n{output2}\n")
     net_connect.disconnect()
 
