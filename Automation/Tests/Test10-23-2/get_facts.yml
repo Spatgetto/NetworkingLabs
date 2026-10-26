@@ -1,0 +1,12 @@
+---
+- name: Get facts from devices
+  hosts: all_devices
+  gather_facts: no
+  tasks:
+    - name: Gather facts
+      ios_facts:
+      register: facts_output
+
+    - name: Show facts output
+      debug:
+        var: facts_output.ansible_facts

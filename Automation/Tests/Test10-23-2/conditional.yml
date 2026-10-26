@@ -1,0 +1,14 @@
+---
+- name: IOS command output with when
+  hosts: all_devices
+  gather_facts: no
+  tasks:
+    - name: show hostname
+      ios_command:
+        commands:
+          - show running-config | include hostname
+      register: hostname_output
+    - name: show ouput with condition
+      debug:
+        msg: "{{ hostname_output.stdout[0] }}"
+      when: hostname_output.stdout[0] is search("R1")
