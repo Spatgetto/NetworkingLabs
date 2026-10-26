@@ -1,6 +1,6 @@
 ---
 - name: Get facts from devices
-  hosts: all_devices
+  hosts: router_group_1
   gather_facts: no
   tasks:
     - name: Gather facts
