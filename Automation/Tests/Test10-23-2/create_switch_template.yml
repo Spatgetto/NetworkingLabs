@@ -1,0 +1,13 @@
+---
+- name: Create Switch Template
+  hosts: localhost
+  vars:
+    switches:
+      "SW1": {"hostname": "SW1", "username": "cisco", "password": "cisco", "vlans": [10, 20, 30]}
+      "SW2": {"hostname": "SW2", "username": "cisco", "password": "cisco", "vlans": [40, 50, 60]}
+  tasks:
+    - name: create switch configuration files
+      template:
+        src: "templates/switch_template.j2"
+        dest: "templates/{{ item.key }}_config.conf"
+      with_dict: "{{ switches }}"

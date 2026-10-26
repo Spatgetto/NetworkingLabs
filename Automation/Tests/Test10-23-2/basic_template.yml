@@ -1,0 +1,8 @@
+---
+- name: Basic Template
+  hosts: localhost
+  tasks: 
+    - name: Copy File
+      template: 
+        src: "templates/file1"
+        dest: "templates/file1_copy"

@@ -1,0 +1,7 @@
+hostname {{ item.value.hostname }}
+
+username {{ item.value.username }} privilege 15 password {{ item.value.password }}
+
+{% for vlan_num in item.value.vlans %}
+vlan {{ vlan_num }}
+{% endfor %}
