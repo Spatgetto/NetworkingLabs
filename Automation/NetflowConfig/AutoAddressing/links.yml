@@ -1,0 +1,11 @@
+---
+links:
+  - router_a: R1
+    interface_a: Ethernet0/0
+    router_b: R2
+    interface_b: Ethernet0/0
+
+  - router_a: R2
+    interface_a: Ethernet0/1
+    router_b: R3
+    interface_b: Ethernet0/0

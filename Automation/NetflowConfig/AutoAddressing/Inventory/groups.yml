@@ -1,0 +1,4 @@
+---
+routers:
+  data:
+    role: router
