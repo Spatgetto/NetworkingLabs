@@ -1,0 +1,13 @@
+// 10-23
+digraph {
+	"ext-conn-1"
+	SW1
+	SW2
+	R1
+	R2
+	"ext-conn-1" -> SW1
+	SW1 -> SW2
+	SW1 -> R1
+	SW2 -> R2
+	R1 -> R2
+}
