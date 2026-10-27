@@ -1,0 +1,21 @@
+// Automatic Topology Diagram
+digraph {
+	{
+		rank=same
+		SW1 [shape=box]
+		SW2 [shape=box]
+	}
+	{
+		rank=same
+		R1 [shape=circle]
+		R2 [shape=circle]
+	}
+	R1 -> R2
+	R1 -> SW1
+	R2 -> R1
+	R2 -> SW2
+	SW1 -> R1
+	SW1 -> SW2
+	SW2 -> R2
+	SW2 -> SW1
+}
