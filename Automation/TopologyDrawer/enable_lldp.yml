@@ -2,7 +2,6 @@
 - name: Enable LLDP on devices
   hosts: all_devices
   gather_facts: false
-  connection: ansible.netcommon.network_cli
 
   tasks:
     - name: Enable LLDP globally

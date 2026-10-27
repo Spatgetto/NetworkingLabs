@@ -1,0 +1,15 @@
+---
+- name: Discover LLDP Neighbors
+  hosts: all_devices
+  gather_facts: false
+
+  tasks:
+    - name: show lldp neighbors
+      ios_command:
+        commands: show lldp neighbor
+      register: output
+    - name: show ouput
+      debug:
+        var: output
+    - name: copy output to tmp file
+      copy: content="{{ output.stdout_lines }}" dest="./tmp/{{ inventory_hostname }}_lldp_output.txt"
