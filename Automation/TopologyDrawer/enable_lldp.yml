@@ -1,13 +1,17 @@
+---
 - name: Enable LLDP on devices
-  hosts: "all_devices"
+  hosts: all_devices
   gather_facts: false
-  connection: network_cli
+  connection: ansible.netcommon.network_cli
+
   tasks:
-    - name: enable lldp
-      ios_lldp:
-        state: present
-        register: output
-    - name: show output
+    - name: Enable LLDP globally
+      ios_lldp_global:
+        config:
+          enabled: true
+        state: merged
+      register: output
+
+    - name: Show output
       debug:
         var: output
-    
