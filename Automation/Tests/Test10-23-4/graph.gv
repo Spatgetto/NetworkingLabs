@@ -1,0 +1,9 @@
+graph my_network {
+    node [shape=box];
+    size = "50 30";
+    extconn1 -- SW1 [label="Bridged"];
+    SW1 -- SW2;
+    SW1 -- R1;
+    R1 -- R2;
+    SW2 -- R2;
+}
