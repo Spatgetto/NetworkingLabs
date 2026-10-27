@@ -13,3 +13,4 @@
         var: output
     - name: copy output to tmp file
       copy: content="{{ output.stdout_lines }}" dest="./tmp/{{ inventory_hostname }}_lldp_output.txt"
+      
