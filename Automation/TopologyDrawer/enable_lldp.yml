@@ -1,0 +1,13 @@
+- name: Enable LLDP on devices
+  hosts: "all_devices"
+  gather_facts: false
+  connection: network_cli
+  tasks:
+    - name: enable lldp
+      ios_lldp:
+        state: present
+        register: output
+    - name: show output
+      debug:
+        var: output
+    
