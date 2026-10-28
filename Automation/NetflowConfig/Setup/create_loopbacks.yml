@@ -1,0 +1,12 @@
+---
+- name: Create Loopback Interfaces
+  hosts: routers
+  gather_facts: false
+
+  tasks:
+    - name: Configure loopback interface
+      cisco.ios.ios_config:
+        parents:
+          - "interface Loopback0"
+        lines:
+          - "ip address 10.255.{{ hostvars[inventory_hostname].router_id }}.{{ hostvars[inventory_hostname].router_id }} 255.255.255.255"
