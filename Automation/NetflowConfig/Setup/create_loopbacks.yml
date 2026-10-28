@@ -1,3 +1,4 @@
+
 ---
 - name: Create Loopback Interfaces
   hosts: routers
@@ -10,3 +11,20 @@
           - "interface Loopback0"
         lines:
           - "ip address 10.255.{{ hostvars[inventory_hostname].router_id }}.{{ hostvars[inventory_hostname].router_id }} 255.255.255.255"
+
+    - name: Add loopbacks to OSPF
+      cisco.ios.ios_config:
+        parents:
+          - "router ospf 1"
+        lines:
+          - "network 10.255.{{ hostvars[inventory_hostname].router_id }}.{{ hostvars[inventory_hostname].router_id }} 0.0.0.0 area 0"
+
+    - name: Show OSPF config
+      cisco.ios.ios_command:
+        commands:
+          - "show running-config | section router ospf"
+      register: output
+
+    - name: Debug OSPF config
+      ansible.builtin.debug:
+        var: output.stdout
