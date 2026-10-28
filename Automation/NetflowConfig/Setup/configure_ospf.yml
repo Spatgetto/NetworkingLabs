@@ -1,1 +1,12 @@
 --- 
+- name: Configure OSPF
+  hosts: routers
+  gather_facts: false
+  tasks:
+    - name: ospfv2 configuration
+      cisco.ios.ios_ospfv2:
+        config:
+          processes:
+            - process_id: 1
+              network: 
+      

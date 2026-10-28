@@ -1,6 +1,6 @@
 
 ---
-- name: Automatically provision point-to-point IP addresses
+- name: Automatically provision point-to-point IP addresses and configure OSPF
   hosts: routers
   gather_facts: false
 
@@ -55,3 +55,24 @@
           - no shutdown
       loop: "{{ interface_configs }}"
       when: not (ansible_check_mode | default(false))
+    - name: Configure OSPF
+      cisco.ios.ios_config:
+        lines:
+          - "router ospf 1"
+          - "network {{ item.ip | ansible.utils.ipaddr('network') }} {{ '0.0.0.3' }} area 0"
+      loop: "{{ interface_configs }}"
+      when: not (ansible_check_mode | default(false))
+        - name: Verify OSPF neighbors
+      cisco.ios.ios_command:
+        commands:
+          - show ip ospf neighbor
+      register: ospf_output
+
+    - name: Print OSPF neighbor results
+      ansible.builtin.debug:
+        msg: |
+          Router: {{ inventory_hostname }}
+          OSPF Neighbors:
+          {{ ospf_output.stdout[0] }}
+
+              
