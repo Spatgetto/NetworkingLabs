@@ -1,5 +1,0 @@
-nornir
-nornir-netmiko
-nornir-utils
-PyYAML
-python-dotenv

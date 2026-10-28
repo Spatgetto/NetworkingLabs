@@ -1,0 +1,57 @@
+
+---
+- name: Automatically provision point-to-point IP addresses
+  hosts: routers
+  gather_facts: false
+
+  vars_files:
+    - links.yml
+
+  vars:
+    subnet_mask: 255.255.255.252
+
+  tasks:
+    - name: Initialize interface configuration list
+      ansible.builtin.set_fact:
+        interface_configs: []
+
+    - name: Build interface configuration for each link
+      ansible.builtin.set_fact:
+        interface_configs: >-
+          {{ interface_configs + [{
+            'name': item.interface_a
+              if inventory_hostname == item.router_a
+              else item.interface_b,
+            'ip': calculated_ip
+          }] }}
+      vars:
+        low_id: >-
+          {{ [hostvars[item.router_a].router_id | int,
+              hostvars[item.router_b].router_id | int] | min }}
+        high_id: >-
+          {{ [hostvars[item.router_a].router_id | int,
+              hostvars[item.router_b].router_id | int] | max }}
+        calculated_ip: >-
+          10.{{ low_id }}.{{ high_id }}.{{
+            1 if (hostvars[inventory_hostname].router_id | int) == (low_id | int)
+            else 2
+          }}
+      loop: "{{ links }}"
+      when: inventory_hostname in [item.router_a, item.router_b]
+
+    - name: Display planned interface addresses
+      ansible.builtin.debug:
+        msg: >-
+          {{ inventory_hostname }}:
+          {{ item.name }} -> {{ item.ip }}/30
+      loop: "{{ interface_configs }}"
+
+    - name: Configure interface IP addresses
+      cisco.ios.ios_config:
+        parents:
+          - "interface {{ item.name }}"
+        lines:
+          - "ip address {{ item.ip }} {{ subnet_mask }}"
+          - no shutdown
+      loop: "{{ interface_configs }}"
+      when: not (ansible_check_mode | default(false))
