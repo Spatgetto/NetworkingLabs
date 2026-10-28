@@ -1,0 +1,142 @@
+2026-10-28 12:12:42,240 - nornir.plugins.inventory.simple -  WARNING -       load() - 'inventory/defaults.yml' is empty or contains only comments, defaulting to empty defaults.
+2026-10-28 12:12:50,600 - nornir.plugins.inventory.simple -  WARNING -       load() - 'inventory/defaults.yml' is empty or contains only comments, defaulting to empty defaults.
+2026-10-28 12:12:58,634 - nornir.plugins.inventory.simple -  WARNING -       load() - 'inventory/defaults.yml' is empty or contains only comments, defaulting to empty defaults.
+2026-10-28 12:13:12,735 - nornir.plugins.inventory.simple -  WARNING -       load() - 'inventory/defaults.yml' is empty or contains only comments, defaulting to empty defaults.
+2026-10-28 12:13:21,650 - nornir.plugins.inventory.simple -  WARNING -       load() - 'inventory/defaults.yml' is empty or contains only comments, defaulting to empty defaults.
+2026-10-28 12:14:13,595 - nornir.plugins.inventory.simple -  WARNING -       load() - 'inventory/defaults.yml' is empty or contains only comments, defaulting to empty defaults.
+2026-10-28 12:14:44,489 - nornir.plugins.inventory.simple -  WARNING -       load() - 'inventory/defaults.yml' is empty or contains only comments, defaulting to empty defaults.
+2026-10-28 12:15:39,092 - nornir.plugins.inventory.simple -  WARNING -       load() - 'inventory/defaults.yml' is empty or contains only comments, defaulting to empty defaults.
+2026-10-28 12:16:00,963 - nornir.plugins.inventory.simple -  WARNING -       load() - 'inventory/defaults.yml' is empty or contains only comments, defaulting to empty defaults.
+2026-10-28 12:16:16,778 - nornir.plugins.inventory.simple -  WARNING -       load() - 'inventory/defaults.yml' is empty or contains only comments, defaulting to empty defaults.
+2026-10-28 12:18:12,284 - nornir.plugins.inventory.simple -  WARNING -       load() - 'inventory/defaults.yml' is empty or contains only comments, defaulting to empty defaults.
+2026-10-28 12:46:45,658 - nornir.plugins.inventory.simple -  WARNING -       load() - 'inventory/defaults.yml' is empty or contains only comments, defaulting to empty defaults.
+2026-10-28 12:46:45,667 -  nornir.core -     INFO -        run() - Running task 'Saying hi' with args {'text': 'hi!'} on 3 hosts
+2026-10-28 12:52:04,660 - nornir.plugins.inventory.simple -  WARNING -       load() - 'inventory/defaults.yml' is empty or contains only comments, defaulting to empty defaults.
+2026-10-28 12:52:04,672 -  nornir.core -     INFO -        run() - Running task 'begin conversation' with args {'speaker': 'James'} on 3 hosts
+2026-10-28 12:52:04,678 - nornir.core.task -    ERROR -      start() - Host 'SW1': task 'begin conversation' failed with traceback:
+Traceback (most recent call last):
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/nornir/core/task.py", line 102, in start
+    r = self.task(self, **self.params)
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/VLANChecker/main.py", line 31, in conversation
+    return Result()
+TypeError: Result.__init__() missing 1 required positional argument: 'host'
+
+2026-10-28 12:52:04,678 - nornir.core.task -    ERROR -      start() - Host 'SW3': task 'begin conversation' failed with traceback:
+Traceback (most recent call last):
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/nornir/core/task.py", line 102, in start
+    r = self.task(self, **self.params)
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/VLANChecker/main.py", line 31, in conversation
+    return Result()
+TypeError: Result.__init__() missing 1 required positional argument: 'host'
+
+2026-10-28 12:52:04,679 - nornir.core.task -    ERROR -      start() - Host 'SW2': task 'begin conversation' failed with traceback:
+Traceback (most recent call last):
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/nornir/core/task.py", line 102, in start
+    r = self.task(self, **self.params)
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/VLANChecker/main.py", line 31, in conversation
+    return Result()
+TypeError: Result.__init__() missing 1 required positional argument: 'host'
+
+2026-10-28 12:54:36,348 - nornir.plugins.inventory.simple -  WARNING -       load() - 'inventory/defaults.yml' is empty or contains only comments, defaulting to empty defaults.
+2026-10-28 12:54:36,358 -  nornir.core -     INFO -        run() - Running task 'begin conversation' with args {'speaker': 'James'} on 3 hosts
+2026-10-28 13:12:08,918 - nornir.plugins.inventory.simple -  WARNING -       load() - 'inventory/defaults.yml' is empty or contains only comments, defaulting to empty defaults.
+2026-10-28 13:12:08,932 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['get_vlans']} on 3 hosts
+2026-10-28 13:12:08,937 - nornir.core.task -    ERROR -      start() - Host 'SW1': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/nornir/core/task.py", line 102, in start
+    r = self.task(self, **self.params)
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/nornir_napalm/plugins/tasks/napalm_get.py", line 29, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/nornir/core/inventory.py", line 474, in get_connection
+    self.open_connection(
+    ~~~~~~~~~~~~~~~~~~~~^
+        connection=connection,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        extras=conn.extras,
+        ^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/nornir/core/inventory.py", line 526, in open_connection
+    conn_obj.open(
+    ~~~~~~~~~~~~~^
+        hostname=hostname,
+        ^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        configuration=configuration,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/nornir_napalm/plugins/connections/__init__.py", line 53, in open
+    network_driver = get_network_driver(platform)
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/napalm/base/__init__.py", line 173, in get_network_driver
+    raise ModuleImportError(f'Cannot import "{name}". Is the library installed?')
+napalm.base.exceptions.ModuleImportError: Cannot import "cisco_ios". Is the library installed?
+
+2026-10-28 13:12:08,938 - nornir.core.task -    ERROR -      start() - Host 'SW3': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/nornir/core/task.py", line 102, in start
+    r = self.task(self, **self.params)
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/nornir_napalm/plugins/tasks/napalm_get.py", line 29, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/nornir/core/inventory.py", line 474, in get_connection
+    self.open_connection(
+    ~~~~~~~~~~~~~~~~~~~~^
+        connection=connection,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        extras=conn.extras,
+        ^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/nornir/core/inventory.py", line 526, in open_connection
+    conn_obj.open(
+    ~~~~~~~~~~~~~^
+        hostname=hostname,
+        ^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        configuration=configuration,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/nornir_napalm/plugins/connections/__init__.py", line 53, in open
+    network_driver = get_network_driver(platform)
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/napalm/base/__init__.py", line 173, in get_network_driver
+    raise ModuleImportError(f'Cannot import "{name}". Is the library installed?')
+napalm.base.exceptions.ModuleImportError: Cannot import "cisco_ios". Is the library installed?
+
+2026-10-28 13:12:08,939 - nornir.core.task -    ERROR -      start() - Host 'SW2': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/nornir/core/task.py", line 102, in start
+    r = self.task(self, **self.params)
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/nornir_napalm/plugins/tasks/napalm_get.py", line 29, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/nornir/core/inventory.py", line 474, in get_connection
+    self.open_connection(
+    ~~~~~~~~~~~~~~~~~~~~^
+        connection=connection,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        extras=conn.extras,
+        ^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/nornir/core/inventory.py", line 526, in open_connection
+    conn_obj.open(
+    ~~~~~~~~~~~~~^
+        hostname=hostname,
+        ^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        configuration=configuration,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/nornir_napalm/plugins/connections/__init__.py", line 53, in open
+    network_driver = get_network_driver(platform)
+  File "/home/jamesautomation/Desktop/NetworkingLabs/Automation/venv/lib/python3.14/site-packages/napalm/base/__init__.py", line 173, in get_network_driver
+    raise ModuleImportError(f'Cannot import "{name}". Is the library installed?')
+napalm.base.exceptions.ModuleImportError: Cannot import "cisco_ios". Is the library installed?
+
+2026-10-28 13:13:53,215 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['get_vlans']} on 3 hosts
+2026-10-28 13:14:36,262 - nornir.plugins.inventory.simple -  WARNING -       load() - 'inventory/defaults.yml' is empty or contains only comments, defaulting to empty defaults.
+2026-10-28 13:14:36,273 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['get_vlans']} on 3 hosts
