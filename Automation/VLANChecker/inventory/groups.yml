@@ -3,4 +3,3 @@ switches:
   port: 22
   username: "cisco"
   password: "cisco"
-  platform: "ios"
