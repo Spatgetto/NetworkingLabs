@@ -142,3 +142,5 @@ napalm.base.exceptions.ModuleImportError: Cannot import "cisco_ios". Is the libr
 2026-10-28 13:14:36,273 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['get_vlans']} on 3 hosts
 2026-10-28 13:15:49,846 - nornir.plugins.inventory.simple -  WARNING -       load() - 'inventory/defaults.yml' is empty or contains only comments, defaulting to empty defaults.
 2026-10-28 13:15:49,871 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['get_vlans']} on 3 hosts
+2026-10-28 13:18:15,159 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['get_vlans']} on 3 hosts
+2026-10-28 13:23:36,355 -  nornir.core -     INFO -        run() - Running task 'napalm_get' with args {'getters': ['get_vlans']} on 3 hosts
