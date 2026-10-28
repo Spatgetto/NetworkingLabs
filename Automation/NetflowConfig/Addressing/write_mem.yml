@@ -1,0 +1,12 @@
+---
+- name: Write Memory
+  hosts: routers
+  gather_facts: false
+  tasks:
+    - name: write memory
+      ios_command:
+        commands: write memory
+      register: output
+    - name: show output
+      debug:
+        var: output
