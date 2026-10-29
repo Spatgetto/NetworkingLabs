@@ -11,6 +11,14 @@ Each lab contains:
 
 ## Index
 
+### Automation
+
+| Title | Link | Key Technologies | Software |
+| --- | --- | --- | --- |
+| Automatic Network Provisioner | [View Lab](./Automation/AutomaticProvisioning/) | Ansible | CML |
+| Topology Drawer | [View Lab](./Automation/TopologyDrawer/) | Python, Ansible, Graphviz | CML |
+| VLAN Checker | [View Lab](./Automation/VLANChecker/) | Python, Nornir, NAPALM | CML |
+
 ### Layer 2
 
 | Title | Link | Key Technologies | Software |
