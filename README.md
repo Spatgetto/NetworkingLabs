@@ -2,13 +2,6 @@
 
 A collection of networking labs completed using GNS3 and Cisco Modeling Labs.
 
-Each lab contains:
-
-- **README.md** – Overview of the lab, including its objective, key technologies, relevant commands, verification results, and takeaways.
-- **Configs/** – Running configurations for each device used in the lab.
-- **Topology/** – PNG image of the network topology and, for GNS3 labs, the GNS3 project file.
-- **Project file** – CML labs include the YAML project file in the project folder.
-
 ## Index
 
 ### Automation

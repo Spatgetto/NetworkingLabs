@@ -1,2 +1,2 @@
 from flask import Flask, url_for, jsonify, request
-from flask_sqlalchemy
+from flask_sqlalchemy import SQLAlchemy
