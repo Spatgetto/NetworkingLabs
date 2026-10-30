@@ -27,7 +27,7 @@ def load_lines(file):
     return lines
 
 def parse_lldp_output(file):
-    """Return (device_name, [neighbor, ...]) for one file."""
+    # Return (device_name, [neighbor, ...]) for one file.
     base = os.path.splitext(os.path.basename(file))[0]
     device = re.sub(r'_lldp_output$', '', base, flags=re.IGNORECASE)
 
@@ -59,7 +59,7 @@ for file in files:
 known = set(results)
 
 def canonical(name):
-    """Map a short neighbor name (r5) onto the full device name (r5-tor)."""
+    # Map a short neighbor name (r5) onto the full device name (r5-tor).
     if name in known:
         return name
     matches = [d for d in known if d.split("-")[0].lower() == name.lower()]
