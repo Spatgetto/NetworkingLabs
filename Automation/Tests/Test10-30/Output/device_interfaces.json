@@ -1,0 +1,38 @@
+{
+    "SW1": {
+        "host": "10.99.99.10",
+        "interfaces": {
+            "name": "Vlan99",
+            "ip": "10.99.99.10",
+            "status": "up",
+            "protocol": "up"
+        }
+    },
+    "SW2": {
+        "host": "10.99.99.20",
+        "interfaces": {
+            "name": "Vlan99",
+            "ip": "10.99.99.20",
+            "status": "up",
+            "protocol": "up"
+        }
+    },
+    "R1": {
+        "host": "10.99.99.30",
+        "interfaces": {
+            "name": "Ethernet0/3",
+            "ip": "unassigned",
+            "status": "administratively down",
+            "protocol": "down"
+        }
+    },
+    "R2": {
+        "host": "10.99.99.40",
+        "interfaces": {
+            "name": "Ethernet0/3",
+            "ip": "unassigned",
+            "status": "administratively down",
+            "protocol": "down"
+        }
+    }
+}

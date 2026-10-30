@@ -1,3 +1,4 @@
+import json, os
 from netmiko import ConnectHandler
 
 defaults = {
@@ -36,8 +37,27 @@ for device, info in devices.items():
     #     elif interface["status"] == "up":
     #         print(interface["interface"] + " is up")
     
+    print(device)
+    
     output = net_connect.send_command(
         "show ip int brief"
     )
 
-    print(device + "\n" + output)
+    lines = output.splitlines()
+    lines.pop(0)
+
+    for line in lines:
+        columns = line.split()
+
+        interface = {
+            "name" : columns[0],
+            "ip" : columns[1],
+            "status" : " ".join(columns[4:-1]),
+            "protocol" : columns[-1]
+        }
+
+        devices[device]["interfaces"] = interface
+
+os.makedirs("./Output", exist_ok=True)
+with open("./Output/device_interfaces.json", "w") as file:
+    json.dump(devices, file, indent=4)
