@@ -78,22 +78,14 @@ for device, neighbors in results.items():
     for n in neighbors:
         n = canonical(n)
         nodes.add(n)
-        edges.add((device, n))
+        edges.add(tuple(sorted((device, n))))
         print(f"neighbors: {n}")
 
-# One rank per group: switches on one level, routers on another
-switches = sorted(n for n in nodes if is_switch(n))
-routers  = sorted(n for n in nodes if not is_switch(n))
-
-with my_graph.subgraph() as s:
-    s.attr(rank="same")
-    for n in switches:
-        s.node(n, shape="box")
-
-with my_graph.subgraph() as r:
-    r.attr(rank="same")
-    for n in routers:
-        r.node(n, shape="circle")
+for n in sorted(nodes):
+    if is_switch(n):
+        my_graph.node(n, shape="box")
+    else:
+        my_graph.node(n, shape="circle")
 
 for a, b in sorted(edges):
     my_graph.edge(a, b)
