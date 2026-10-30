@@ -13,18 +13,7 @@ os.makedirs(output_dir)
 def load_lines(file):
     with open(file) as f:
         text = f.read()
-    try:
-        data = json.loads(text)
-    except json.JSONDecodeError:
-        return text.splitlines()
-    lines, stack = [], [data]
-    while stack:
-        item = stack.pop(0)
-        if isinstance(item, list):
-            stack = item + stack
-        else:
-            lines.append(str(item))
-    return lines
+    return text.splitlines()
 
 def parse_lldp_output(file):
     # Return (device_name, [neighbor, ...]) for one file.
