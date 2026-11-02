@@ -56,6 +56,12 @@ def edit_device(device_id):
     db.session.add(device)
     db.session.commit()
     return jsonify({})
+@app.route('/devices/<int:device_id>', methods=['DELETE'])
+def delete_device(device_id):
+    device = Device.query.get_or_404(device_id)
+    db.session.delete(device)
+    db.session.commit()
+    return jsonify({}), 204
 
 # Initialize database tables
 with app.app_context():
