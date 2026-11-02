@@ -1,35 +1,66 @@
-from flask import Flask
+
+from flask import Flask, url_for, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///network.db"
 db = SQLAlchemy(app)
 
+class ValidationError(Exception):
+    pass
+
 class Device(db.Model):
-    __tablename__ = 'devices'
     id = db.Column(db.Integer, primary_key=True)
-    hostname = db.Column(db.String(120), index=True)
-    vendor = db.Column(db.String(40))
-    ipv4 = db.Column(db.String(15))
-    def __init__(self, hostname, vendor, ipv4):
-        self.hostname = hostname
-        self.vendor = vendor
-        self.ipv4 = ipv4
-    def __repr__(self):
-        return '<Device %r>' % self.hostname
-    
+    name = db.Column(db.String(80), nullable=False)
+    mgmt_address = db.Column(db.String(120), nullable=False)
+    vendor = db.Column(db.String(64), nullable=False)
+
+    def get_url(self):
+        return url_for('get_device', device_id=self.id, _external=True)
+
+    def export_data(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'mgmt_address': self.mgmt_address,
+            'vendor': self.vendor,
+        }
+
+    def import_data(self, data):
+        try:
+            self.name = data['name']
+            self.mgmt_address = data['mgmt_address']
+            self.vendor = data['vendor']
+        except KeyError as e:
+            raise ValidationError(f'Missing field: {e.args[0]}')
+        return self
+
+@app.route('/devices/', methods=['GET'])
+def get_devices():
+    devices = Device.query.all()
+    return jsonify([device.get_url() for device in devices])
+@app.route('/devices/', methods=['POST'])
+def create_device():
+    device = Device()
+    device.import_data(request.json)
+    db.session.add(device)
+    db.session.commit()
+    return jsonify({}), 201, {'Location': device.get_url()}
+
+@app.route('/devices/<int:id>', methods=['GET'])
+def get_device(id):
+    return jsonify(Device.query.get_or_404(id).export_data())
+@app.route('/devices/<int:id>', methods=['PUT'])
+def edit_device(id):
+    device = Device.query.get_or_404(id)
+    device.import_data(request.json)
+    db.session.add(device)
+    db.session.commit()
+    return jsonify({})
+
+# Initialize database tables
+with app.app_context():
+    db.create_all()
+
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
-
-        r1 = Device('R1', 'Cisco', '10.99.99.10')
-        r2 = Device('R2', 'Cisco', '10.99.99.20')
-        r3 = Device('R3', 'Cisco', '10.99.99.30')
-
-        db.session.add_all([r1, r2, r3])
-        db.session.commit()
-
-        devices = Device.query.all()
-
-        for device in devices:
-            print(device.hostname, device.vendor, device.ipv4)
+    app.run(host='0.0.0.0', debug=True)
