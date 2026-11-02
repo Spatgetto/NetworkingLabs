@@ -1,4 +1,3 @@
-
 from flask import Flask, url_for, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 
@@ -10,17 +9,17 @@ class ValidationError(Exception):
     pass
 
 class Device(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    device_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     mgmt_address = db.Column(db.String(120), nullable=False)
     vendor = db.Column(db.String(64), nullable=False)
 
     def get_url(self):
-        return url_for('get_device', device_id=self.id, _external=True)
+        return url_for('get_device', device_id=self.device_id, _external=True)
 
     def export_data(self):
         return {
-            'id': self.id,
+            'device_id': self.device_id,
             'name': self.name,
             'mgmt_address': self.mgmt_address,
             'vendor': self.vendor,
@@ -47,12 +46,12 @@ def create_device():
     db.session.commit()
     return jsonify({}), 201, {'Location': device.get_url()}
 
-@app.route('/devices/<int:id>', methods=['GET'])
-def get_device(id):
-    return jsonify(Device.query.get_or_404(id).export_data())
-@app.route('/devices/<int:id>', methods=['PUT'])
-def edit_device(id):
-    device = Device.query.get_or_404(id)
+@app.route('/devices/<int:device_id>', methods=['GET'])
+def get_device(device_id):
+    return jsonify(Device.query.get_or_404(device_id).export_data())
+@app.route('/devices/<int:device_id>', methods=['PUT'])
+def edit_device(device_id):
+    device = Device.query.get_or_404(device_id)
     device.import_data(request.json)
     db.session.add(device)
     db.session.commit()
