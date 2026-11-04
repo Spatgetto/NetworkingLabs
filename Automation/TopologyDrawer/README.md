@@ -2,47 +2,53 @@
 
 ## Objective
 
-Use Python, Ansible, and LLDP to automatically create automatically topology diagram for a network.
+Use Python, Ansible, and LLDP to automatically discover network devices and generate a network topology diagram based on their connections.
 
 ## Key Technologies
 
 - Ansible
 - Python
+- LLDP
+- Graphviz
 
-## Relevant Commands/Scripts
+## Relevant Scripts
 
-`ansible.cfg` used to disable host key checking by default.
+`ansible.cfg` is used to disable host key checking by default.
 
-`hosts.yml` contains a list of hosts and configurations for Ansible.  There are two groups, `switches` and `routers`.
+`hosts.yml` is an Ansible inventory file that defines the devices managed by Ansible. It contains two groups: `switches` and `routers`.
 
-`enable_lldp.yml` is an Ansible playbook that uses the LLDP module to enable LLDP on all devices.
+`enable_lldp.yml` is an Ansible playbook that enables LLDP on all network devices.
 
-`discover_lldp.yml` is an Ansible playbook that uses the IOS commands module to `show lldp neighbors` on all devices.  The output is printed to the console and copied into the `./tmp` folder as `(device_name)_lldp_output.txt`
+`discover_lldp.yml` is an Ansible playbook that uses the IOS command module to execute `show lldp neighbors` on all devices. The output is printed to the console and saved to the `./tmp` directory as `(device_name)_lldp_output.txt`.
 
-`write_mem.yml` is an Ansible playbook that is used to save the running-configs on all devices.
+`write_mem.yml` is an Ansible playbook that saves the running configurations on all devices.
 
-`TopologyDrawer.py` parses the lldp data from the `./tmp` folder to create a topology map of the network using graphviz.  The topology map is exported as a pdf in the `./output`
+`TopologyDrawer.py` parses LLDP neighbor information from the `./tmp` directory and uses Graphviz to automatically generate a network topology diagram. The resulting diagram is exported as a PDF to the `./output` directory.
 
 ## Verification
 
-Verified LLDP was successfully enabled on all routers and switches using Ansible.
+Run these checks after the playbooks and Python script finish.
 
-Confirmed that `show lldp neighbors` returned neighboring device information, including local interfaces, remote device IDs, and remote interfaces.
+| Check | What to look for |
+|---|---|
+| `show lldp neighbors` | Neighboring device IDs, local interfaces, and remote interfaces are correctly displayed |
+| `show lldp` | LLDP is enabled on the devices |
+| `ls ./tmp` | LLDP output files exist for each device |
+| `ls ./output` | The generated topology PDF exists |
+| Open the exported PDF | Discovered devices and their connections are accurately represented |
 
-Verified that LLDP output files were successfully generated in the `./tmp` directory for each device.
+Verified that LLDP was successfully enabled on all routers and switches using Ansible.
 
-Confirmed that TopologyDrawer.py successfully parsed the LLDP output and generated a network topology diagram.
+Confirmed that LLDP neighbor information was collected and saved to individual text files in the `./tmp` directory.
 
-Opened the exported PDF to verify that discovered devices and their connections were accurately represented
+Verified that `TopologyDrawer.py` successfully parsed the LLDP output and generated a network topology diagram using Graphviz.
+
+Opened the exported PDF to confirm that devices, interfaces, and network connections were accurately represented.
 
 ## Conclusion
 
-Used Ansible to automate LLDP configuration and network device information gathering across multiple routers and switches.
-
-Gained experience collecting and processing structured network information from Cisco IOS command output.
-
-Used Python file handling and text parsing to extract network topology information from LLDP neighbor tables.
-
-Used Graphviz to programmatically generate network topology diagrams based on discovered Layer 2 adjacencies.
-
-Explored how network automation can reduce the need for manually documenting network infrastructure.
+- **Automated discovery:** Used Ansible to enable LLDP and collect neighbor information across multiple routers and switches.
+- **Network data collection:** Gained experience gathering structured network information from Cisco IOS devices.
+- **Python parsing:** Used Python file handling and text parsing to extract device and interface information from LLDP output.
+- **Topology visualization:** Used Graphviz to programmatically generate network topology diagrams from discovered Layer 2 adjacencies.
+- **Network documentation:** Explored how network automation can reduce manual infrastructure documentation and make topology diagrams easier to generate and maintain.
