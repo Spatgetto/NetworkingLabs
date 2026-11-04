@@ -3,8 +3,9 @@ import ipaddress
 import os
 
 from datetime import datetime, timezone
-from flask import Flask
+from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.exc import IntegrityError
 
 # Database setup
 
@@ -89,5 +90,23 @@ class DeviceGroup(db.Model):
         back_populates="groups"
     )
 
+    def export_data(self):
+        return {
+            "group_id": self.group_id,
+            "name": self.name,
+            "devices": [
+                {
+                    "device_id": device.device_id,
+                    "name": device.name,
+                    "mgmt_address": device.mgmt_address,
+                    "vendor": device.vendor
+                }
+                for device in self.devices
+            ]
+        }
+
 with app.app_context():
     db.create_all()
+
+if __name__ == "__main__":
+    app.run(debug=True)
