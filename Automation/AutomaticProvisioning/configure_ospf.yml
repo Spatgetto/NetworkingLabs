@@ -1,12 +1,59 @@
---- 
-- name: Configure OSPF
+---
+- name: Automatically configure and verify OSPF
   hosts: routers
   gather_facts: false
+
+  vars_files:
+    - links.yml
+
   tasks:
-    - name: ospfv2 configuration
-      cisco.ios.ios_ospfv2:
-        config:
-          processes:
-            - process_id: 1
-              network: 
-      
+    - name: Initialize OSPF network list
+      ansible.builtin.set_fact:
+        ospf_networks: []
+
+    - name: Build OSPF network list
+      ansible.builtin.set_fact:
+        ospf_networks: >-
+          {{ ospf_networks + [calculated_network] }}
+      vars:
+        low_id: >-
+          {{ [hostvars[item.router_a].router_id | int,
+              hostvars[item.router_b].router_id | int] | min }}
+        high_id: >-
+          {{ [hostvars[item.router_a].router_id | int,
+              hostvars[item.router_b].router_id | int] | max }}
+        calculated_ip: >-
+          10.{{ low_id }}.{{ high_id }}.{{
+            1 if (hostvars[inventory_hostname].router_id | int) == (low_id | int)
+            else 2
+          }}
+        calculated_network: >-
+          {{ calculated_ip | ansible.utils.ipaddr('network/prefix') }}
+      loop: "{{ links }}"
+      when: inventory_hostname in [item.router_a, item.router_b]
+
+    - name: Display planned OSPF networks
+      ansible.builtin.debug:
+        msg: "{{ inventory_hostname }}: {{ item }}"
+      loop: "{{ ospf_networks }}"
+
+    - name: Configure OSPF
+      cisco.ios.ios_config:
+        lines:
+          - "router ospf 1"
+          - "network {{ item | ansible.utils.ipaddr('network') }} 0.0.0.3 area 0"
+      loop: "{{ ospf_networks }}"
+      when: not (ansible_check_mode | default(false))
+
+    - name: Verify OSPF neighbors
+      cisco.ios.ios_command:
+        commands:
+          - show ip ospf neighbor
+      register: ospf_output
+
+    - name: Print OSPF neighbor results
+      ansible.builtin.debug:
+        msg: |
+          Router: {{ inventory_hostname }}
+          OSPF Neighbors:
+          {{ ospf_output.stdout[0] }}

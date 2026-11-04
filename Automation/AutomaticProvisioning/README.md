@@ -6,11 +6,19 @@ Use Ansible to assign IP addresses to point-to-point interfaces, configure loopb
 
 ## Key Technologies
 
-What technologies does this lab focus on
+- Ansible
 
-## Relevant Commands
+## Relevant Scripts
 
-What are the commands used to configure the key technologies
+`hosts.yml` is an Ansible hosts file that defines the routers to configure.
+
+`links.yml` contains interface information pertaining to the point-to-point links between routers.
+
+`ip_provisioning.yml` is an Ansible playbook that automatically assigns IP addresses to routers based on the `links.yml` file.  
+
+`configure_ospf.yml`
+
+`create_loopbacks.yml`
 
 ## Verification
 
