@@ -1,23 +1,7 @@
-
-import ipaddress
-import os
-
 from datetime import datetime, timezone
-from flask import Flask, jsonify, request
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.exc import IntegrityError
 
-# Database setup
+from app import db
 
-app = Flask(__name__)
-
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
-    "DATABASE_URL",
-    "sqlite:///network.db"
-)
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-db = SQLAlchemy(app)
 
 # Association Table: Devices <-> Device Groups
 
@@ -38,29 +22,34 @@ device_group_association = db.Table(
     )
 )
 
+
 class Device(db.Model):
     device_id = db.Column(
-        db.Integer, 
+        db.Integer,
         primary_key=True
     )
+
     name = db.Column(
-        db.String(80), 
+        db.String(80),
         nullable=False
     )
+
     mgmt_address = db.Column(
-        db.String(64), 
+        db.String(64),
         nullable=False,
         unique=True
     )
+
     vendor = db.Column(
-        db.String(64), 
+        db.String(64),
         nullable=False
     )
+
     created_at = db.Column(
         db.DateTime,
         default=lambda: datetime.now(timezone.utc),
         nullable=False
-    )   
+    )
 
     groups = db.relationship(
         "DeviceGroup",
@@ -68,16 +57,19 @@ class Device(db.Model):
         back_populates="devices"
     )
 
+
 class DeviceGroup(db.Model):
     group_id = db.Column(
-        db.Integer, 
+        db.Integer,
         primary_key=True
     )
+
     name = db.Column(
-        db.String(80), 
-        nullable=False, 
+        db.String(80),
+        nullable=False,
         unique=True
     )
+
     created_at = db.Column(
         db.DateTime,
         default=lambda: datetime.now(timezone.utc),
@@ -104,9 +96,3 @@ class DeviceGroup(db.Model):
                 for device in self.devices
             ]
         }
-
-with app.app_context():
-    db.create_all()
-
-if __name__ == "__main__":
-    app.run(debug=True)
