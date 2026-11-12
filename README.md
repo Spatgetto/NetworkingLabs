@@ -46,6 +46,7 @@ A collection of networking labs completed using GNS3 and Cisco Modeling Labs.
 | Title | Link | Key Technologies | Software |
 | --- | --- | --- | --- |
 | EIGRP Unequal Cost Multipathing | [View Lab](./Routing/EIGRP/UCMPEIGRP/) | EIGRP, EIGRP Stub, EIGRP UCMP | CML |
+| EIGRP Named Mode | [View Lab](./Routing/EIGRP/NamedModeEIGRP/) | Named Mode EIGRP, IPv6, IPv6 ACLs, IPv6 Prefix Lists | CML |
 
 ### VPN
 
