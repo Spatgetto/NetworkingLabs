@@ -1,0 +1,189 @@
+Building configuration...
+
+Current configuration : 3907 bytes
+!
+! Last configuration change at 16:02:59 UTC Thu Nov 12 2026
+!
+version 17.18
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no logging console
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+login on-success log
+ipv6 unicast-routing
+ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-2039851
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-2039851
+ revocation-check none
+ rsakeypair TP-self-signed-2039851
+ hash sha512
+!
+!
+crypto pki certificate chain TP-self-signed-2039851
+ certificate self-signed 01
+  3082032A 30820212 A0030201 02020101 300D0609 2A864886 F70D0101 0D050030 
+  2E312C30 2A060355 04030C23 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 32303339 38353130 1E170D32 36313131 30313532 3034385A 
+  170D3336 31313039 31353230 34385A30 2E312C30 2A060355 04030C23 494F532D 
+  53656C66 2D536967 6E65642D 43657274 69666963 6174652D 32303339 38353130 
+  82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02 82010100 
+  C670FE83 957EF0C3 E1377A1A 0813A1E1 9A650E0F C308BA8C AAEAECA2 791B8C2F 
+  A417CEC9 0E313469 573926F3 B41E2934 394800E7 1F20D1C6 40CDC386 A8C08D09 
+  5FF38CF0 D1B32725 FFC3DA75 8981976D A42867AB 695324BB 1E2D15DF 1568A992 
+  B87B2986 3721229B 3B504712 61292A9E 6FD76B22 DA3EC967 ACC11EA1 F222DB41 
+  00411F1A 78FE5187 616EF7A8 2067E317 C9239339 8554B377 8BD67E96 315F3EDC 
+  B0352FB9 56148F32 96B58B33 997B2604 2AE7EA8F DC5047D2 A8E489A5 5778B852 
+  2B06B017 5EBD1379 2546BF10 8F755D3E F7D873A9 B728CDFD 78CF35E4 1F83E751 
+  99001669 BCAB473E 53B3BA92 5F169E5F DFC96C86 535D7DC5 9204BF3C 899A4C95 
+  02030100 01A35330 51301D06 03551D0E 04160414 00310228 5E8AE1C9 5BE86753 
+  34BE7FD1 422CDD94 301F0603 551D2304 18301680 14003102 285E8AE1 C95BE867 
+  5334BE7F D1422CDD 94300F06 03551D13 0101FF04 05300301 01FF300D 06092A86 
+  4886F70D 01010D05 00038201 01003198 E879EE74 AA55770A D292DA73 F4CAB26A 
+  6F14ABFB 520C98DA ADEFFB42 4E231CA4 70414BBE 38B0D68D D3DBE0E0 D95EB3B0 
+  4A51E943 90A101A3 2A6475C9 9FCEE508 3651448E 9BFA785D 6A53C386 FFB7C36E 
+  142CE424 9A873C39 33AC5A0D 302FC669 D1E18405 6A7D56BE 3B6708E0 3AF7D125 
+  26C4914A 1215EE21 3A0F4D2B EFD13B83 EDE3675A CFD45A6C 1328FEFB D6677F27 
+  245CBB01 2A0FEDB7 6B417B1B F5840106 2F5E2F38 6C756715 54CC3EA6 93EF70C5 
+  E21D2FEC 96905409 8EF16C91 971EE4C9 446EBF04 97D8C20A 4DA855B4 DB70BE44 
+  A0FB187B 754E4538 66566C8A 268427A2 4DE7BC42 7D0979AD D1E1096A 61EE9AD6 
+  727BA7A9 79EEB23D A8BA9F1C D858
+  	quit
+!
+!
+memory free low-watermark processor 79866
+!
+!
+spanning-tree mode rapid-pvst
+!
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.255.1.1 255.255.255.255
+!
+interface Ethernet0/0
+ ip address 10.1.2.1 255.255.255.252
+ ipv6 address 2001:DB8:12::1/64
+!
+interface Ethernet0/1
+ no ip address
+ shutdown
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+!
+router eigrp lab
+ !
+ address-family ipv4 unicast autonomous-system 100
+  !
+  af-interface default
+   passive-interface
+  exit-af-interface
+  !
+  af-interface Ethernet0/0
+   no passive-interface
+  exit-af-interface
+  !
+  topology base
+  exit-af-topology
+  network 10.0.0.0
+ exit-address-family
+ !
+ address-family ipv6 unicast autonomous-system 100
+  !
+  topology base
+   distribute-list prefix-list PERMIT_2001 in 
+  exit-af-topology
+  eigrp router-id 1.1.1.1
+ exit-address-family
+!
+ip forward-protocol nd
+!
+!
+ip http server
+ip http secure-server
+ip ssh bulk-mode 131072
+no logging btrace
+!
+ipv6 prefix-list PERMIT_2001 seq 5 permit 2001::/16 le 128
+ipv6 prefix-list PERMIT_2001 seq 10 deny ::/0 le 128
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ activation-character 13
+ logging synchronous
+line aux 0
+ activation-character 13
+line vty 0 4
+ exec-timeout 0 0
+ activation-character 13
+ login
+ transport input ssh
+!
+!
+!
+!
+end

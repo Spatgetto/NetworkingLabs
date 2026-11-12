@@ -1,0 +1,182 @@
+Building configuration...
+
+Current configuration : 3848 bytes
+!
+! Last configuration change at 16:02:59 UTC Thu Nov 12 2026
+!
+version 17.18
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname R2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no logging console
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+login on-success log
+ipv6 unicast-routing
+ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-2039847
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-2039847
+ revocation-check none
+ rsakeypair TP-self-signed-2039847
+ hash sha512
+!
+!
+crypto pki certificate chain TP-self-signed-2039847
+ certificate self-signed 01
+  3082032A 30820212 A0030201 02020101 300D0609 2A864886 F70D0101 0D050030 
+  2E312C30 2A060355 04030C23 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 32303339 38343730 1E170D32 36313131 30313532 3033365A 
+  170D3336 31313039 31353230 33365A30 2E312C30 2A060355 04030C23 494F532D 
+  53656C66 2D536967 6E65642D 43657274 69666963 6174652D 32303339 38343730 
+  82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02 82010100 
+  9C960A10 35CF2100 51AD51F1 F26A2947 9BEB756C 678901B8 9FA85717 3EA31702 
+  6F7DCF86 F97B021D CE462F59 93DE8D09 D5151EDE BFE206F6 6A1DAEAF 435E3C70 
+  B9D75E50 33E7673A 2F222EA0 12719CC1 DBD74DD0 D5AD9197 B067AB4D F1A63373 
+  88FA2FFC A62DEF46 8C7F3FD8 AF2BC243 A978490B 710B3A42 8FA7C0CA DF2D964F 
+  03CBE99A 1AEF81B3 54BE57F6 F5DF50E6 CFBD2756 9AE9A6D1 E397C91F 770D90D1 
+  A0941A26 43220F63 30C45D04 4C0D0BD2 B7B32C68 5E029929 E7FCE579 A143F26E 
+  3ADD72C9 F9EB6AB6 6D8C61AC 3FA2EDED D221A751 8289891E 3AD2D5C1 F7682152 
+  1C687FF3 53B57F08 32DBB0F3 06C18035 BCC2EAF8 C8FC79D7 123993CC D5E7DCBF 
+  02030100 01A35330 51301D06 03551D0E 04160414 283EF1C7 FF06C400 2531E23B 
+  7B18A66C CB6C9922 301F0603 551D2304 18301680 14283EF1 C7FF06C4 002531E2 
+  3B7B18A6 6CCB6C99 22300F06 03551D13 0101FF04 05300301 01FF300D 06092A86 
+  4886F70D 01010D05 00038201 0100787D 6666B51B 9245BF2F 54C62932 08D326B8 
+  27919A57 5C6E6741 88C30E6B 2456415D 321E0479 2E040748 8DCD92F8 93B38148 
+  85F168F1 88C40150 2F0930E2 DFC204BE F65FCEDD CCD443C1 DF6D904A 9716A592 
+  D589A8AC 2D585F8F 824D9A93 0AD6CC18 7B7C469A F3B71ECE 5920CA66 06E33F0D 
+  E2000AB8 F206518D AF12CE14 5C14F215 398249DC 52F547C0 3603F94D 005CBD5B 
+  EDA40B5D 5707F172 C028B599 06269D91 19B483D2 525974E3 A2D5E670 2FF01B16 
+  080D9D3B 8CE62B70 7C4F02F0 3C873336 12BE93EA E741BFE5 2590F08E 20EF6932 
+  0C30A17D 924A3E2D 05F902EF E8D4B8FD 0130BE29 9465A83E 7748F704 9EFA9A20 
+  E56A9CE3 2C9F5504 BB5ACB30 AD9E
+  	quit
+!
+!
+memory free low-watermark processor 79866
+!
+!
+spanning-tree mode rapid-pvst
+!
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.255.2.2 255.255.255.255
+!
+interface Ethernet0/0
+ ip address 10.1.2.2 255.255.255.252
+ ipv6 address 2001:DB8:12::2/64
+ ipv6 traffic-filter NO_2001:db8:45::2 out
+!
+interface Ethernet0/1
+ ip address 10.2.3.1 255.255.255.252
+ ipv6 address 2001:DB8:23::1/64
+!
+interface Ethernet0/2
+ ip address 10.2.5.1 255.255.255.252
+ ipv6 address 2001:DB8:25::1/64
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+!
+router eigrp lab
+ !
+ address-family ipv4 unicast autonomous-system 100
+  !
+  topology base
+  exit-af-topology
+  network 10.0.0.0
+ exit-address-family
+ !
+ address-family ipv6 unicast autonomous-system 100
+  !
+  topology base
+  exit-af-topology
+  eigrp router-id 2.2.2.2
+ exit-address-family
+!
+ip forward-protocol nd
+!
+!
+ip http server
+ip http secure-server
+ip ssh bulk-mode 131072
+no logging btrace
+!
+!
+!
+ipv6 access-list NO_2001:db8:45::2
+ sequence 10 deny ipv6 2001:DB8:45::/64 any
+ sequence 20 permit ipv6 any any
+!
+control-plane
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ activation-character 13
+ logging synchronous
+line aux 0
+ activation-character 13
+line vty 0 4
+ exec-timeout 0 0
+ activation-character 13
+ login
+ transport input ssh
+!
+!
+!
+!
+end

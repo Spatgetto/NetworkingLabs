@@ -1,0 +1,180 @@
+Building configuration...
+
+Current configuration : 3667 bytes
+!
+! Last configuration change at 16:02:59 UTC Thu Nov 12 2026
+!
+version 17.18
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname R5
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no logging console
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+login on-success log
+ipv6 unicast-routing
+ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-2039849
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-2039849
+ revocation-check none
+ rsakeypair TP-self-signed-2039849
+ hash sha512
+!
+!
+crypto pki certificate chain TP-self-signed-2039849
+ certificate self-signed 01
+  3082032A 30820212 A0030201 02020101 300D0609 2A864886 F70D0101 0D050030 
+  2E312C30 2A060355 04030C23 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 32303339 38343930 1E170D32 36313131 30313735 3830305A 
+  170D3336 31313039 31373538 30305A30 2E312C30 2A060355 04030C23 494F532D 
+  53656C66 2D536967 6E65642D 43657274 69666963 6174652D 32303339 38343930 
+  82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02 82010100 
+  8356C708 E2519E83 84302D3B F078BDC2 1D81488F 7ABEBF1B 93E807AA 1E0054E7 
+  EA4E0453 1711C48D 2B2BB7F0 4B687FA4 B9176782 801B1DA5 4D54B5A8 2CA6C796 
+  0D6BF041 3FBE28BA 12E0E715 D5BF1826 B11868BB 01BCA7A4 CBF8F3E2 6B4BA78C 
+  AEC47E3D 7831A5B4 E5446AC2 C8011D48 895B52E9 3E2DAD6F 2B40F436 A72B77CE 
+  68440534 D8A965D9 0CB96171 EEEF232F 95D7045A 9CE23917 CCD95207 8A7BB86B 
+  D4517746 7487288F 6C51F1A3 27A93427 7577D708 42CE1CDE 3AB7A897 55A399BF 
+  312C431F 61806F78 325F0B6C 847CE3DE 91B86A01 F4F1915F 121A0FAB 244C79A1 
+  7101035F CFC57A2B 8A17C70F 0DCE60A7 48186EE1 A0392432 E06EF542 5AB5E73F 
+  02030100 01A35330 51301D06 03551D0E 04160414 731AE8B1 CBAB795C 4BFDA0C6 
+  1F294A59 CF5EB421 301F0603 551D2304 18301680 14731AE8 B1CBAB79 5C4BFDA0 
+  C61F294A 59CF5EB4 21300F06 03551D13 0101FF04 05300301 01FF300D 06092A86 
+  4886F70D 01010D05 00038201 01002F9B 1043FB45 C2B0EE8B 056AE9E5 98AC9455 
+  09388313 D83E46E6 A563FFB1 A58D9F55 70F4A843 45C17044 C80C1B72 72BBE22E 
+  4B486C24 C4707AA5 77919091 1833211B 83C4DEED 2C4FD43E 133D3C01 5BF6C36A 
+  D06D4DE5 370F8BEF 67F3AD71 29E61DE8 F6D535D7 87EBCD86 C67293F9 C83320E3 
+  356153CB 48D848B9 C5A70D3C D4AE607B 9D97D2B6 FB07401B 057AE2B0 7DB8A9C9 
+  1116D5A5 EA56BA53 4BEE3D23 3E8C4140 E406C59A A75462D5 C29DD7A3 2FB55E90 
+  BF1DBC6D C2E4AFA4 D62A8238 0CB493DE 33950E8B 28E178D3 E02E1C1B E9464764 
+  500B3D2E C3DF8830 B61CFF2B 09B58DF6 F74846FC E17B9497 497EAAC2 995680BA 
+  30EB52AE D31FF1F8 1DBDA415 E270
+  	quit
+!
+!
+memory free low-watermark processor 79866
+!
+!
+spanning-tree mode rapid-pvst
+!
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.255.5.5 255.255.255.255
+!
+interface Ethernet0/0
+ ip address 10.2.5.2 255.255.255.252
+ ipv6 address 2001:DB8:25::2/64
+!
+interface Ethernet0/1
+ ip address 10.4.5.2 255.255.255.252
+ ipv6 address 2001:DB8:45::2/64
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+!
+router eigrp lb
+!
+!
+router eigrp lab
+ !
+ address-family ipv4 unicast autonomous-system 100
+  !
+  topology base
+  exit-af-topology
+  network 10.0.0.0
+ exit-address-family
+ !
+ address-family ipv6 unicast autonomous-system 100
+  !
+  topology base
+  exit-af-topology
+  eigrp router-id 5.5.5.5
+ exit-address-family
+!
+ip forward-protocol nd
+!
+!
+ip http server
+ip http secure-server
+ip ssh bulk-mode 131072
+no logging btrace
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ activation-character 13
+ logging synchronous
+line aux 0
+ activation-character 13
+line vty 0 4
+ exec-timeout 0 0
+ activation-character 13
+ login
+ transport input ssh
+!
+!
+!
+!
+end
