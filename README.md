@@ -41,6 +41,12 @@ A collection of networking labs completed using GNS3 and Cisco Modeling Labs.
 | --- | --- | --- | --- |
 | Dual-ISP BGP Routing, NAT/PAT, and Automatic Failover | [View Lab](./Routing/BGP/Dual-ISPBGP/) | eBGP, iBGP, BGP Weight, NAT Overload (PAT), ISP Redundancy, Route Maps | GNS3 |
 
+### EIGRP
+
+| Title | Link | Key Technologies | Software |
+| --- | --- | --- | --- |
+| EIGRP Unequal Cost Multipathing | [View Lab](./Routing/EIGRP/UCMPEIGRP/) | EIGRP, EIGRP Stub, EIGRP UCMP | CML |
+
 ### VPN
 
 | Title | Link | Key Technologies | Software |
