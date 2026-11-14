@@ -1,0 +1,148 @@
+Current configuration : 2032 bytes
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname R4
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip tcp synwait-time 5
+!
+!
+crypto isakmp policy 999
+ encr aes
+ authentication pre-share
+ group 19
+crypto isakmp key securekey1 address 0.0.0.0
+crypto isakmp profile 999
+! This profile is incomplete (no match identity statement)
+!
+!
+crypto ipsec transform-set set1 esp-aes esp-sha256-hmac
+ mode tunnel
+!
+!
+crypto ipsec profile profile1
+ set transform-set set1
+!
+!
+!
+!
+!
+!
+interface Tunnel0
+ bandwidth 10000
+ ip address 172.16.1.4 255.255.255.0
+ no ip redirects
+ ip mtu 1400
+ ip nhrp authentication lab
+ ip nhrp map multicast 198.51.100.2
+ ip nhrp map 172.16.1.1 198.51.100.2
+ ip nhrp network-id 1
+ ip nhrp nhs 172.16.1.1
+ ip tcp adjust-mss 1360
+ tunnel source FastEthernet0/0
+ tunnel mode gre multipoint
+ tunnel protection ipsec profile profile1
+!
+interface FastEthernet0/0
+ ip address 198.51.100.10 255.255.255.252
+ duplex full
+!
+interface FastEthernet1/0
+ ip address 10.4.0.1 255.255.0.0
+ duplex full
+!
+interface FastEthernet2/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface FastEthernet3/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface FastEthernet4/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface FastEthernet5/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface FastEthernet6/0
+ no ip address
+ shutdown
+ duplex full
+!
+!
+router eigrp 100
+ network 10.0.0.0
+ network 172.16.0.0
+!
+router bgp 65004
+ bgp log-neighbor-changes
+ network 198.51.100.8 mask 255.255.255.252
+ neighbor 198.51.100.9 remote-as 65002
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+end
