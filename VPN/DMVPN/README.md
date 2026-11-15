@@ -18,8 +18,6 @@ Configure DMVPN Phase 2
 
 ## Relevant Commands
 
-What are the commands used to configure the key technologies
-
 ### On Spoke + Hubs (R1, R3, R4, R5)
 
 ```cisco
