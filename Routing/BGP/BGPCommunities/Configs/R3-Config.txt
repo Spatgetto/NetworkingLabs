@@ -1,0 +1,133 @@
+Current configuration : 1756 bytes
+!
+! Last configuration change at 18:12:35 UTC Mon Nov 16 2026
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname R3
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip tcp synwait-time 5
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.3.3.1 255.255.255.255
+!
+interface FastEthernet0/0
+ ip address 198.51.100.6 255.255.255.252
+ duplex full
+!
+interface FastEthernet1/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface FastEthernet2/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface FastEthernet3/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface FastEthernet4/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface FastEthernet5/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface FastEthernet6/0
+ no ip address
+ shutdown
+ duplex full
+!
+router bgp 65003
+ bgp log-neighbor-changes
+ network 10.3.3.1 mask 255.255.255.255
+ neighbor 198.51.100.5 remote-as 65002
+ neighbor 198.51.100.5 send-community
+ neighbor 198.51.100.5 route-map 65001-POLICY in
+!
+ip forward-protocol nd
+!
+ip bgp-community new-format
+ip community-list standard MATCH-65001:1 permit 65001:1
+ip community-list standard MATCH-65001:2 permit 65001:2
+!
+no ip http server
+no ip http secure-server
+!
+!
+route-map 65001-POLICY deny 10
+ match community MATCH-65001:1
+!
+route-map 65001-POLICY permit 20
+ match community MATCH-65001:2
+!
+route-map 65001-POLICY deny 999
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+end
