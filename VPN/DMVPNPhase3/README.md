@@ -1,5 +1,9 @@
 # DMVPN Phase 3
 
+## Requirements
+
+c7200-adventerprisek9-mz.152-4.S6.image
+
 ## Objective
 
 Configure DMVPN Phase 3
@@ -93,6 +97,6 @@ Key takeaways:
 - Configured multipoint GRE tunnels between the hub and spokes.
 - Implemented IPsec tunnel protection for secure communication.
 - Established NHRP registration between spokes and the hub.
-- Configured NHRP redirects and shortcuts for direct spoke-to-spoke communication.
+- Configured NHRP redirects and shortcuts for direct spoke-to-spoke communication.  Used commands `ip nhrp redirect` and `ip nhrp shortcut`
 - Verified tunnel connectivity and peer status using `show dmvpn` and `show ip nhrp`.
 - Gained practical experience with DMVPN Phase 3 architecture and troubleshooting.
