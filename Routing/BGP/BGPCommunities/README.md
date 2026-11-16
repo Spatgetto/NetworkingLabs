@@ -98,4 +98,3 @@ show ip route 10.1.1.1
 - Verified community propagation and route filtering using BGP show commands.
 - Used soft inbound refreshes to reprocess previously received routes after policy changes.
 - Demonstrated how communities provide a scalable way to implement routing policies without relying solely on individual prefix filters.
-
